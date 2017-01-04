@@ -8,6 +8,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="norwester.otf">
+            <string>Norwester-Regular</string>
+        </array>
+        <array key="sacramento.ttf">
+            <string>Sacramento-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Home View Controller-->
         <scene sceneID="D6w-nO-r3k">
@@ -21,42 +29,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-8v-c2K">
-                                <rect key="frame" x="194" y="257" width="165" height="223"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="See My Sprints"/>
-                                <connections>
-                                    <segue destination="6hS-Ta-25j" kind="show" identifier="seeAllSegue" id="pOJ-PX-dCB"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57R-Xr-JEa">
-                                <rect key="frame" x="101" y="90" width="173" height="88"/>
+                                <rect key="frame" x="101" y="166" width="173" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start A Sprint"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
+                                <state key="normal" backgroundImage="StartAFlight"/>
                                 <connections>
                                     <segue destination="6hS-Ta-25j" kind="show" identifier="startSegue" id="ZXg-hA-6th"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNb-AE-piq">
-                                <rect key="frame" x="16" y="257" width="170" height="223"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A u t o P i l o t " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UA-49-8Lm">
+                                <rect key="frame" x="16" y="37" width="343" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Create a New Sprint"/>
+                                <fontDescription key="fontDescription" name="Norwester-Regular" family="Norwester" pointSize="47"/>
+                                <color key="textColor" red="0.28235294117647058" green="0.3529411764705882" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Without Fuel, Pilots Become Pedestrians" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDc-8M-diU">
+                                <rect key="frame" x="16" y="341" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.88235294117647056" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Norwester-Regular" family="Norwester" pointSize="16"/>
+                                <color key="textColor" red="0.67450980392156867" green="0.6588235294117647" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Let your Brain Rest Easy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMe-MR-zYM">
+                                <rect key="frame" x="16" y="99" width="343" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Sacramento-Regular" family="Sacramento" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNb-AE-piq">
+                                <rect key="frame" x="16" y="426" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create a New Sprint" image="createButton"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="eY7-Ml-thl" kind="show" identifier="createNewSegue" id="btp-Cd-Ba2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0r1-hz-fBa">
-                                <rect key="frame" x="16" y="203" width="343" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-8v-c2K">
+                                <rect key="frame" x="212" y="426" width="147" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" image="AllFlightsButton"/>
+                                <connections>
+                                    <segue destination="6hS-Ta-25j" kind="show" identifier="seeAllSegue" id="pOJ-PX-dCB"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
-                        <outlet property="testLabel" destination="0r1-hz-fBa" id="juW-cY-Fjp"/>
+                        <outlet property="createButton" destination="nNb-AE-piq" id="Eek-Bp-Luj"/>
+                        <outlet property="showAllButton" destination="FBM-8v-c2K" id="Ahc-cX-nRJ"/>
+                        <outlet property="startButton" destination="57R-Xr-JEa" id="uh6-yk-6fE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2CE-FL-Hlj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -85,7 +116,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Sprint" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO1-Io-Yib">
                                 <rect key="frame" x="16" y="28" width="343" height="164"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="KohinoorTelugu-Regular" family="Kohinoor Telugu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -392,6 +423,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
+                                    <action selector="Start:" destination="w5d-xr-Kdb" eventType="touchUpInside" id="5j8-gG-KlO"/>
                                     <segue destination="t67-Lt-5YG" kind="show" identifier="startSprintSegue" id="UVN-Ua-0Fo"/>
                                 </connections>
                             </button>
@@ -435,6 +467,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="startButton" destination="xPy-Ai-yVn" id="SfP-cL-Rbi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1e-Ee-02h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -644,11 +679,16 @@
             <point key="canvasLocation" x="1327" y="388"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AllFlightsButton" width="288" height="285"/>
+        <image name="StartAFlight" width="300" height="300"/>
+        <image name="createButton" width="500" height="500"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="phq-Rs-bEG"/>
-        <segue reference="UVN-Ua-0Fo"/>
+        <segue reference="pOJ-PX-dCB"/>
+        <segue reference="kyf-xX-Wte"/>
         <segue reference="9b6-WG-gmT"/>
+        <segue reference="UVN-Ua-0Fo"/>
         <segue reference="yNf-gw-7er"/>
-        <segue reference="ZXg-hA-6th"/>
     </inferredMetricsTieBreakers>
 </document>

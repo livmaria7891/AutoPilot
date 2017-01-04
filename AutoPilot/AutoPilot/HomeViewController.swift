@@ -11,13 +11,17 @@ import UIKit
 class HomeViewController: UIViewController {
     
     
-    @IBOutlet weak var testLabel: UILabel!
-
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var showAllButton: UIButton!
+    
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        testLabel.text = "I belong to the HomeViewController."
+        startButton.layer.cornerRadius = 10
+   
     }
 
     override func didReceiveMemoryWarning() {
