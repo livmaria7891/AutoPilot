@@ -1,23 +1,24 @@
 //
-//  SprintViewController.swift
+//  CreateViewController.swift
 //  AutoPilot
 //
-//  Created by Olivia Legge on 1/2/17.
+//  Created by Olivia Legge on 1/5/17.
 //  Copyright © 2017 Olivia Legge. All rights reserved.
 //
 
 import UIKit
-import UserNotifications
 
-class SprintViewController: UIViewController {
+class CreateViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var startButton: UIButton!
+    //MARK: Properties
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var label: UILabel!
     
-
+    //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        nameTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,12 +26,19 @@ class SprintViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func scheduleNotification(_ sender: Any) {
+    //MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        nameTextField.resignFirstResponder()
         
-        
+        return true
     }
     
-   
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //Code to set Name in Model
+        
+    }
     
 
     /*
