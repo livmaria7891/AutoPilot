@@ -423,7 +423,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
-                                    <action selector="Start:" destination="w5d-xr-Kdb" eventType="touchUpInside" id="5j8-gG-KlO"/>
+                                    <action selector="scheduleNotification:" destination="w5d-xr-Kdb" eventType="touchUpInside" id="LbN-AB-6H3"/>
                                     <segue destination="t67-Lt-5YG" kind="show" identifier="startSprintSegue" id="UVN-Ua-0Fo"/>
                                 </connections>
                             </button>
