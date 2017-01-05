@@ -9,7 +9,12 @@
 import UIKit
 
 class FlightTableViewCell: UITableViewCell {
-
+    
+    //MARK: Properties
+    @IBOutlet weak var flightName: UILabel!
+    @IBOutlet weak var categoryImage: UIImageView!
+    @IBOutlet weak var favoriteImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
