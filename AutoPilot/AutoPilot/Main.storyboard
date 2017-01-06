@@ -70,7 +70,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="eY7-Ml-thl" kind="show" identifier="createNewSegue" id="btp-Cd-Ba2"/>
+                                    <segue destination="auz-m3-0Bs" kind="show" identifier="createNewSegue" id="btp-Cd-Ba2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-8v-c2K">
@@ -94,7 +94,7 @@
             </objects>
             <point key="canvasLocation" x="-186.40000000000001" y="-444.82758620689657"/>
         </scene>
-        <!--Create View Controller-->
+        <!--New Flight-->
         <scene sceneID="SE5-jH-zoX">
             <objects>
                 <viewController id="eY7-Ml-thl" customClass="CreateViewController" customModule="AutoPilot" customModuleProvider="target" sceneMemberID="viewController">
@@ -107,30 +107,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Flight Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aQQ-4G-BdY">
-                                <rect key="frame" x="16" y="241" width="343" height="30"/>
+                                <rect key="frame" x="16" y="367" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Flight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO1-Io-Yib">
-                                <rect key="frame" x="16" y="48" width="343" height="164"/>
+                                <rect key="frame" x="16" y="164" width="343" height="164"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="KohinoorTelugu-Regular" family="Kohinoor Telugu" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpV-ng-lSA">
-                                <rect key="frame" x="16" y="0.0" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Home"/>
-                                <connections>
-                                    <segue destination="xyo-Ol-ymw" kind="show" identifier="homeSegue" id="tJb-fT-Yzj"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New Flight" id="v5s-eF-AgU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aTM-JG-P1Y"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="yuV-Xj-xu8"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="label" destination="pO1-Io-Yib" id="tpe-T2-je0"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
@@ -138,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-186.40000000000001" y="351.27436281859076"/>
+            <point key="canvasLocation" x="-234" y="1128"/>
         </scene>
         <!--My Flights-->
         <scene sceneID="MmM-FP-HIv">
@@ -188,7 +184,7 @@
                     <navigationItem key="navigationItem" title="My Flights" id="1f2-Yy-QFM">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="tN2-81-gVK">
                             <connections>
-                                <segue destination="eY7-Ml-thl" kind="show" id="eLF-M8-SXv"/>
+                                <segue destination="auz-m3-0Bs" kind="presentation" identifier="addFlight" id="eLF-M8-SXv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -340,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bG-gW-mv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3344.8000000000002" y="71.514242878560722"/>
+            <point key="canvasLocation" x="4284" y="71.514242878560722"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="U9T-Kf-Ki0">
@@ -395,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWy-yU-J0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4055.1999999999998" y="71.514242878560722"/>
+            <point key="canvasLocation" x="4994.3999999999996" y="71.514242878560722"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="83R-jK-8Fw">
@@ -482,7 +478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sAK-2Z-7uE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1327" y="388"/>
+            <point key="canvasLocation" x="2264.8000000000002" y="387.25637181409297"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aDL-ET-OP4">
@@ -502,6 +498,24 @@
             </objects>
             <point key="canvasLocation" x="608.79999999999995" y="-439.43028485757122"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="F3d-zm-Pq6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="auz-m3-0Bs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kKu-sn-3bs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eY7-Ml-thl" kind="relationship" relationship="rootViewController" id="G4g-bF-5B4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdi-tT-Rft" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-234" y="387"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AllFlightsButton" width="288" height="285"/>
@@ -511,8 +525,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="tXn-sU-5lW"/>
         <segue reference="V1f-xQ-AmY"/>
-        <segue reference="eLF-M8-SXv"/>
+        <segue reference="phq-Rs-bEG"/>
         <segue reference="s9S-Wt-G0I"/>
-        <segue reference="tJb-fT-Yzj"/>
+        <segue reference="eLF-M8-SXv"/>
     </inferredMetricsTieBreakers>
 </document>
