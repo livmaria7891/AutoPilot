@@ -14,11 +14,12 @@ class Flight {
     
     var name: String
     var steps: [String]?
+    var supplies: [String]?
     var favorite: Bool
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]?, favorite: Bool) {
+    init?(name: String, steps: [String]?, supplies: [String]?, favorite: Bool) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -28,6 +29,7 @@ class Flight {
         // Initialize stored properties.
         self.name = name
         self.steps = steps
+        self.supplies = supplies
         self.favorite = favorite
     }
     
