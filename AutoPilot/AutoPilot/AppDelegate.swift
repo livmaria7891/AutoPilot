@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func scheduleNotification() {
+        UNUserNotificationCenter.current().delegate = self
         
         // Fires 1 seconds after called
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -93,5 +94,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("GOT TO COMPLETION HANDLER")
+        if response.actionIdentifier == "next" {
+            print("next was clicked")
+            scheduleNotification()
+        } else if response.actionIdentifier == "skip" {
+            print("skip was clicked")
+            scheduleNotification()
+        } else if response.actionIdentifier == "end"{
+            print("end was clicked")
+            scheduleNotification()
+        }
+    }
 }
 
