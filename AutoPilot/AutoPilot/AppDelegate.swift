@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Notification access denied.")
             }
         }
+        
+        let nextAction = UNNotificationAction(identifier: "next", title: "Done!", options: [])
+        let skipAction = UNNotificationAction(identifier: "skip", title: "Skip This Step", options: [])
+        let endAction = UNNotificationAction(identifier: "end", title: "End This Flight", options: [])
+        let category = UNNotificationCategory(identifier: "onFlightCategory", actions: [nextAction, skipAction, endAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
         return true
     }
     
@@ -59,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         content.title = "Hey Olivia"
         content.body = "Here's something on your list!"
         content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "onFlightCategory"
         
         
 //        For a Picture -- But it doesn't work as is yet
