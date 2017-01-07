@@ -52,27 +52,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func scheduleNotification() {
         
-        // Fires 5 seconds after called
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        // Fires 1 seconds after called
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         
         let content = UNMutableNotificationContent()
         content.title = "Hey Olivia"
         content.body = "Here's something on your list!"
         content.sound = UNNotificationSound.default()
         
+        
 //        For a Picture -- But it doesn't work as is yet
 //      In the tutorial, the photo is not in Assets.. try to rewrite this without the bundle main, maybe?
         
-//        if let path = Bundle.main.path(forResource: "StartAFlight", ofType: "png") {
-//            let url = URL(fileURLWithPath: path)
-//            
-//            do {
-//                let attachment = try UNNotificationAttachment(identifier: "StartAFlight", url: url, options: nil)
-//                content.attachments = [attachment]
-//            } catch {
-//                print("The attachment was not loaded.")
-//            }
-//        }
+        if let path = Bundle.main.path(forResource: "defaultPhoto", ofType: "png") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                let attachment = try UNNotificationAttachment(identifier: "defaultPhoto", url: url, options: nil)
+                content.attachments = [attachment]
+            } catch {
+                print("The attachment was not loaded.")
+            }
+        }
         
         let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
         
