@@ -15,7 +15,8 @@ class Flight {
     var name: String
     var steps: [String]?
     var supplies: [String]?
-    var favorite: Bool
+    var isFavorite: Bool
+    var favImage: UIImage?
     
     //MARK: Initialization
     
@@ -30,7 +31,15 @@ class Flight {
         self.name = name
         self.steps = steps
         self.supplies = supplies
-        self.favorite = favorite
+        self.isFavorite = favorite
+        
+        addFavoriteImage()
+    }
+    
+    func addFavoriteImage(){
+        if self.isFavorite == true {
+            favImage = UIImage(named: "placeHolderStar")
+        }
     }
     
 }

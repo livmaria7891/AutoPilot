@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Notification access denied.")
             }
         }
+        
+        let nextAction = UNNotificationAction(identifier: "next", title: "Done!", options: [])
+        let skipAction = UNNotificationAction(identifier: "skip", title: "Skip This Step", options: [])
+        let endAction = UNNotificationAction(identifier: "end", title: "End This Flight", options: [])
+        let category = UNNotificationCategory(identifier: "onFlightCategory", actions: [nextAction, skipAction, endAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category])
         return true
     }
     
@@ -35,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        scheduleNotification()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -48,7 +55,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func scheduleNotification() {
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Fires 1 seconds after called
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Hey Olivia"
+        content.body = "Here's something on your list!"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "onFlightCategory"
+        
+        
+//        For a Picture -- But it doesn't work as is yet
+//      In the tutorial, the photo is not in Assets.. try to rewrite this without the bundle main, maybe?
+        
+        if let path = Bundle.main.path(forResource: "defaultPhoto", ofType: "png") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                let attachment = try UNNotificationAttachment(identifier: "defaultPhoto", url: url, options: nil)
+                content.attachments = [attachment]
+            } catch {
+                print("The attachment was not loaded.")
+            }
+        }
+        
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        }
+    }
 
 
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("GOT TO COMPLETION HANDLER")
+        if response.actionIdentifier == "next" {
+            print("next was clicked")
+            scheduleNotification()
+        } else if response.actionIdentifier == "skip" {
+            print("skip was clicked")
+            scheduleNotification()
+        } else if response.actionIdentifier == "end"{
+            print("end was clicked")
+            scheduleNotification()
+        }
+    }
 }
 

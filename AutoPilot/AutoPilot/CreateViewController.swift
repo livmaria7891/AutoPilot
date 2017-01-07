@@ -13,6 +13,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     //MARK: Properties
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    //probably don't need this
+    var flight: Flight?
+    
     
     //MARK: Overrides
     override func viewDidLoad() {
