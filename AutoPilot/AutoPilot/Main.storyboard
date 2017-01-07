@@ -70,7 +70,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="auz-m3-0Bs" kind="show" identifier="createNewSegue" id="btp-Cd-Ba2"/>
+                                    <segue destination="auz-m3-0Bs" kind="presentation" identifier="addFlight" id="btp-Cd-Ba2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-8v-c2K">
@@ -130,6 +130,7 @@
                     <connections>
                         <outlet property="label" destination="pO1-Io-Yib" id="tpe-T2-je0"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
+                        <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -485,7 +486,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRW-aL-eKA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kU3-K5-TxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kU3-K5-TxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -503,7 +504,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="auz-m3-0Bs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kKu-sn-3bs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kKu-sn-3bs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -523,10 +524,10 @@
         <image name="createButton" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tXn-sU-5lW"/>
         <segue reference="V1f-xQ-AmY"/>
+        <segue reference="tXn-sU-5lW"/>
         <segue reference="phq-Rs-bEG"/>
+        <segue reference="btp-Cd-Ba2"/>
         <segue reference="s9S-Wt-G0I"/>
-        <segue reference="eLF-M8-SXv"/>
     </inferredMetricsTieBreakers>
 </document>
