@@ -524,10 +524,10 @@
         <image name="createButton" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="V1f-xQ-AmY"/>
         <segue reference="tXn-sU-5lW"/>
+        <segue reference="V1f-xQ-AmY"/>
         <segue reference="phq-Rs-bEG"/>
         <segue reference="btp-Cd-Ba2"/>
-        <segue reference="s9S-Wt-G0I"/>
+        <segue reference="EMv-YQ-Req"/>
     </inferredMetricsTieBreakers>
 </document>
