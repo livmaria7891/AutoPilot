@@ -129,7 +129,11 @@
                                 <action selector="cancel:" destination="eY7-Ml-thl" id="9Pm-46-tgh"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="yuV-Xj-xu8"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="yuV-Xj-xu8">
+                            <connections>
+                                <segue destination="bWI-0F-dZu" kind="unwind" unwindAction="unwindToFlightListWithSender:" id="mTa-ge-tcW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="label" destination="pO1-Io-Yib" id="tpe-T2-je0"/>
@@ -138,6 +142,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bWI-0F-dZu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="609" y="342"/>
         </scene>
@@ -221,9 +226,6 @@
                                 <rect key="frame" x="16" y="16" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Home"/>
-                                <connections>
-                                    <segue destination="xyo-Ol-ymw" kind="show" identifier="homeSegue" id="kyf-xX-Wte"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFf-1o-HXi">
                                 <rect key="frame" x="16" y="531" width="175" height="30"/>
@@ -285,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1e-Ee-02h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2537" y="144"/>
+            <point key="canvasLocation" x="2537" y="-34"/>
         </scene>
         <!--On Sprint View Controller-->
         <scene sceneID="ioK-nR-tSf">
@@ -318,9 +320,6 @@
                                 <rect key="frame" x="19" y="20" width="41" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Home"/>
-                                <connections>
-                                    <segue destination="xyo-Ol-ymw" kind="show" identifier="homeSegue" id="phq-Rs-bEG"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abm-bm-iWG">
                                 <rect key="frame" x="200" y="445" width="159" height="30"/>
@@ -391,8 +390,7 @@
         <image name="createButton" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="btp-Cd-Ba2"/>
-        <segue reference="kyf-xX-Wte"/>
         <segue reference="EMv-YQ-Req"/>
+        <segue reference="eLF-M8-SXv"/>
     </inferredMetricsTieBreakers>
 </document>
