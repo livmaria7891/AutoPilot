@@ -20,7 +20,7 @@ class Flight {
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]?, supplies: [String]?, favorite: Bool) {
+    init?(name: String, steps: [String]? = nil, supplies: [String]? = nil, isFavorite: Bool = false) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -29,9 +29,7 @@ class Flight {
         
         // Initialize stored properties.
         self.name = name
-        self.steps = steps
-        self.supplies = supplies
-        self.isFavorite = favorite
+        self.isFavorite = isFavorite
         
         addFavoriteImage()
     }

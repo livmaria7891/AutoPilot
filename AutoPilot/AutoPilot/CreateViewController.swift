@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class CreateViewController: UIViewController, UITextFieldDelegate {
     
@@ -24,6 +25,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         nameTextField.delegate = self
+        
+        // Enable the Save button only if the text field has a valid Flight name.
+        updateSaveButtonState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,20 +44,52 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Disable the Save button while editing.
+        saveButton.isEnabled = false
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
+       updateSaveButtonState()
+        
         //Code to set Name in Model
         
     }
     
 
-    /*
+    
     // MARK: - Navigation
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        let name = nameTextField.text ?? ""
+        
+        
+        // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
+        flight = Flight(name: name, steps: [], supplies: [], isFavorite: false )
+        
     }
-    */
+    
+    //MARK: Private Methods
+    
+    private func updateSaveButtonState() {
+        // Disable the Save button if the text field is empty.
+        let text = nameTextField.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+ 
 
 }
