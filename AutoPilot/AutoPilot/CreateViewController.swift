@@ -70,10 +70,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+    /* guard let button = sender as? UIBarButtonItem, button === saveButton else {
             os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
             return
         }
+    */
         
         let name = nameTextField.text ?? ""
         

@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  ViewController.swift
 //  AutoPilot
 //
 //  Created by Olivia Legge on 1/2/17.
@@ -10,7 +10,6 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var showAllButton: UIButton!
@@ -20,7 +19,7 @@ class HomeViewController: UIViewController {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        startButton.layer.cornerRadius = 10
+        // startButton.layer.cornerRadius = 10
    
     }
 

@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1548" y="304"/>
+            <point key="canvasLocation" x="609" y="342"/>
         </scene>
         <!--My Flights-->
         <scene sceneID="MmM-FP-HIv">
@@ -225,55 +225,55 @@
                                     <segue destination="xyo-Ol-ymw" kind="show" identifier="homeSegue" id="kyf-xX-Wte"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPy-Ai-yVn">
-                                <rect key="frame" x="16" y="118" width="343" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <action selector="scheduleNotification:" destination="w5d-xr-Kdb" eventType="touchUpInside" id="LbN-AB-6H3"/>
-                                    <segue destination="t67-Lt-5YG" kind="show" identifier="startSprintSegue" id="UVN-Ua-0Fo"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFf-1o-HXi">
-                                <rect key="frame" x="16" y="485" width="175" height="30"/>
+                                <rect key="frame" x="16" y="531" width="175" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Each Block of Texts represents a step in a Sprint" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kd3-SH-np3">
-                                <rect key="frame" x="16" y="183" width="343" height="68"/>
+                                <rect key="frame" x="16" y="211" width="343" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="These Blocks can be edited, deleted, or moved around by drag and drop." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fx6-yO-6YC">
-                                <rect key="frame" x="16" y="267" width="343" height="84"/>
+                                <rect key="frame" x="16" y="303" width="343" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Until the edit button is clicked, the editing features are disabled (to prevent mix ups)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="V0J-qi-hdY">
-                                <rect key="frame" x="16" y="367" width="343" height="84"/>
+                                <rect key="frame" x="16" y="409" width="343" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bcg-tb-GaI">
-                                <rect key="frame" x="199" y="485" width="175" height="30"/>
+                                <rect key="frame" x="199" y="531" width="175" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7Q-QA-9K2">
-                                <rect key="frame" x="16" y="547" width="123" height="30"/>
+                                <rect key="frame" x="30" y="601" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Delete This Sprint"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ia-Dl-F6j">
-                                <rect key="frame" x="248" y="547" width="77" height="30"/>
+                                <rect key="frame" x="248" y="601" width="77" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add a Step"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPy-Ai-yVn">
+                                <rect key="frame" x="16" y="132" width="343" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="scheduleNotification:" destination="w5d-xr-Kdb" eventType="touchUpInside" id="LbN-AB-6H3"/>
+                                    <segue destination="t67-Lt-5YG" kind="show" identifier="startSprintSegue" id="UVN-Ua-0Fo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -285,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1e-Ee-02h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2468" y="-32"/>
+            <point key="canvasLocation" x="2537" y="144"/>
         </scene>
         <!--On Sprint View Controller-->
         <scene sceneID="ioK-nR-tSf">
@@ -382,7 +382,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fdi-tT-Rft" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="609" y="305"/>
+            <point key="canvasLocation" x="-186" y="343"/>
         </scene>
     </scenes>
     <resources>
@@ -391,8 +391,8 @@
         <image name="createButton" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eLF-M8-SXv"/>
+        <segue reference="btp-Cd-Ba2"/>
+        <segue reference="kyf-xX-Wte"/>
         <segue reference="EMv-YQ-Req"/>
-        <segue reference="phq-Rs-bEG"/>
     </inferredMetricsTieBreakers>
 </document>
