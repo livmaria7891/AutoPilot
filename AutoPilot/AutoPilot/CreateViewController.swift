@@ -33,6 +33,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         //Set up View with existing Flight info
         if let flight = flight {
             nameLabel.text = flight.name
+            nameTextField.text   = flight.name
         }
         
         

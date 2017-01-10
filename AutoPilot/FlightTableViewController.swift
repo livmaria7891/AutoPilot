@@ -129,12 +129,18 @@ class FlightTableViewController: UITableViewController {
         
         if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.flight {
             
-            // Add a new meal.
-            let newIndexPath = IndexPath(row: flights.count, section: 0)
-            flights.append(flight)
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // Update an existing flight.
+                flights[selectedIndexPath.row] = flight
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
             
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
-            
+                // Add a new flight.
+                let newIndexPath = IndexPath(row: flights.count, section: 0)
+                flights.append(flight)
+                
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
             
         }
         
