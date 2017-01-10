@@ -125,7 +125,7 @@ class FlightTableViewController: UITableViewController {
     
     //MARK: Actions
     
-    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+    @IBAction func unwindToFlightList(sender: UIStoryboardSegue) {
         
         if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.flight {
             
