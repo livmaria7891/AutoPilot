@@ -70,7 +70,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="auz-m3-0Bs" kind="presentation" identifier="addFlight" id="btp-Cd-Ba2"/>
+                                    <segue destination="auz-m3-0Bs" kind="presentation" identifier="" id="btp-Cd-Ba2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBM-8v-c2K">
@@ -120,6 +120,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flight Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPA-5x-6Ms">
+                                <rect key="frame" x="16" y="446" width="343" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -137,6 +144,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="label" destination="pO1-Io-Yib" id="tpe-T2-je0"/>
+                        <outlet property="nameLabel" destination="hPA-5x-6Ms" id="kLM-Le-DHI"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
                         <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>
                     </connections>
@@ -144,7 +152,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bWI-0F-dZu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="609" y="342"/>
+            <point key="canvasLocation" x="3210" y="-439"/>
         </scene>
         <!--My Flights-->
         <scene sceneID="MmM-FP-HIv">
@@ -183,6 +191,7 @@
                                     <outlet property="categoryImage" destination="MLL-sE-gIu" id="jzo-UQ-9r4"/>
                                     <outlet property="favoriteImage" destination="ZFH-t6-Wzo" id="gGi-Yu-8QZ"/>
                                     <outlet property="flightName" destination="73X-Bg-kiM" id="0Y9-W5-E8F"/>
+                                    <segue destination="eY7-Ml-thl" kind="show" identifier="ShowDetail" id="caL-lN-lD9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -194,7 +203,7 @@
                     <navigationItem key="navigationItem" title="My Flights" id="1f2-Yy-QFM">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="tN2-81-gVK">
                             <connections>
-                                <segue destination="auz-m3-0Bs" kind="presentation" identifier="addFlight" id="eLF-M8-SXv"/>
+                                <segue destination="auz-m3-0Bs" kind="presentation" identifier="AddFlight" id="eLF-M8-SXv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -287,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1e-Ee-02h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2537" y="-34"/>
+            <point key="canvasLocation" x="2926" y="857"/>
         </scene>
         <!--On Sprint View Controller-->
         <scene sceneID="ioK-nR-tSf">
@@ -345,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bG-gW-mv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3334" y="-33"/>
+            <point key="canvasLocation" x="3543" y="857"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aDL-ET-OP4">
@@ -381,7 +390,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fdi-tT-Rft" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-186" y="343"/>
+            <point key="canvasLocation" x="2414" y="181"/>
         </scene>
     </scenes>
     <resources>
@@ -391,6 +400,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EMv-YQ-Req"/>
+        <segue reference="caL-lN-lD9"/>
         <segue reference="eLF-M8-SXv"/>
     </inferredMetricsTieBreakers>
 </document>

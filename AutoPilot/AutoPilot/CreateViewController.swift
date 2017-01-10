@@ -15,6 +15,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var nameLabel: UILabel!
     
     /*
      This value is either passed by `FlightTableViewController` in `prepare(for:sender:)`
@@ -28,6 +29,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         nameTextField.delegate = self
+        
+        //Set up View with existing Flight info
+        if let flight = flight {
+            nameLabel.text = flight.name
+        }
+        
         
         // Enable the Save button only if the text field has a valid Flight name.
         updateSaveButtonState()
