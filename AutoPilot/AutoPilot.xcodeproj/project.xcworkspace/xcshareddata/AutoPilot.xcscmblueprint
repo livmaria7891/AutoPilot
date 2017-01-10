@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "545B2F7AE6E6200D52BF10EFFB2A3F4D800D484B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "700A610B25DD674D2E3AE308D34ABBEA40131DED" : 9223372036854775807,
+    "545B2F7AE6E6200D52BF10EFFB2A3F4D800D484B" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "960458E8-6EA8-45AA-A92C-5BF45BB14360",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "700A610B25DD674D2E3AE308D34ABBEA40131DED" : "",
+    "545B2F7AE6E6200D52BF10EFFB2A3F4D800D484B" : "capstone\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AutoPilot",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AutoPilot\/AutoPilot.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/livmaria7891\/AutoPilot.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "545B2F7AE6E6200D52BF10EFFB2A3F4D800D484B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/livmaria7891\/FarMar.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "700A610B25DD674D2E3AE308D34ABBEA40131DED"
+    }
+  ]
+}

@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import os.log
 
 class FlightTableViewController: UITableViewController {
+    
+    //MARK: Properties
+    
+    var flights = [Flight]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        loadSampleFlights()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +30,32 @@ class FlightTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return flights.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        // Table view cells are reused and should be dequeued using a cell identifier.
+        let cellIdentifier = "FlightTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? FlightTableViewCell else {
+            fatalError("The dequeued cell is not an instance of FlightTableViewCell.")
+        }
+        
+        // Fetches the appropriate meal for the data source layout.
+        let flight = flights[indexPath.row]
+        
+        cell.flightName.text = flight.name
+        cell.categoryImage.image = nil
+        cell.favoriteImage.image = flight.favImage
+        
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -82,14 +92,77 @@ class FlightTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+        case "AddFlight":
+            os_log("Adding a new flight.", log: OSLog.default, type: .debug)
+            
+        case "ShowDetail":
+            guard let flightDetailViewController = segue.destination as? CreateViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedFlightCell = sender as? FlightTableViewCell else {
+                fatalError("Unexpected sender: \(sender)")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedFlightCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedFlight = flights[indexPath.row]
+            flightDetailViewController.flight = selectedFlight
+            
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
-    */
+    
+    //MARK: Actions
+    
+    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+        
+        if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.flight {
+            
+            // Add a new meal.
+            let newIndexPath = IndexPath(row: flights.count, section: 0)
+            flights.append(flight)
+            
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            
+        }
+        
+        
+    }
+
+    //MARK: Private Methods
+    
+    // Fake Model Data
+
+    private func loadSampleFlights() {
+    
+    
+        guard let flight1 = Flight(name: "Morning Routine", steps: ["Wake up", "Make Coffee", "Shower"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
+            fatalError("Unable to instantiate flight")
+        }
+        
+        guard let flight2 = Flight(name: "Work Routine", supplies: ["desk"]) else {
+            fatalError("Unable to instantiate flight2")
+        }
+        
+        guard let flight3 = Flight(name: "Bedtime Routine", steps: ["Get in Bed", "Fall Asleep"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
+            fatalError("Unable to instantiate flight3")
+        }
+        
+        
+        flights += [flight1, flight2, flight3]
+        
+    }
 
 }
