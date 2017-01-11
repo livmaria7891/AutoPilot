@@ -21,7 +21,14 @@ class FlightTableViewController: UITableViewController {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
 
-        loadSampleFlights()
+        // Load any saved meals, otherwise load sample data.
+        if let savedFlights = loadFlights() {
+            flights += savedFlights
+        }
+        else {
+            // Load the sample data.
+            loadSampleFlights()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +82,7 @@ class FlightTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             flights.remove(at: indexPath.row)
+            saveFlights()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -147,6 +155,8 @@ class FlightTableViewController: UITableViewController {
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
             
+            saveFlights()
+            
         }
         
         
@@ -173,6 +183,21 @@ class FlightTableViewController: UITableViewController {
         
         
         flights += [flight1, flight2, flight3]
+        
+    }
+    
+    private func saveFlights() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(flights, toFile: Flight.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save flights...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadFlights() -> [Flight]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
         
     }
 

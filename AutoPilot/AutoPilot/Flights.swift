@@ -17,7 +17,7 @@ class Flight: NSObject, NSCoding {
     var steps: [String]?
     var supplies: [String]?
     var isFavorite: Bool
-//    var favImage: UIImage?
+
     
     //MARK: Archiving Paths
     
@@ -47,14 +47,9 @@ class Flight: NSObject, NSCoding {
         self.name = name
         self.isFavorite = isFavorite
         
-//        addFavoriteImage()
+
     }
     
-//    func addFavoriteImage(){
-//        if self.isFavorite == true {
-//            favImage = UIImage(named: "placeHolderStar")
-//        }
-//    }
     
     //MARK: NSCoding
     
@@ -78,7 +73,7 @@ class Flight: NSObject, NSCoding {
         
         let supplies = aDecoder.decodeObject(forKey: PropertyKey.supplies) as? [String]
         
-        guard let isFavorite = aDecoder.decodeObject(forKey: PropertyKey.isFavorite) as? Bool else {
+        guard let isFavorite = aDecoder.decodeBool(forKey: PropertyKey.isFavorite) as? Bool else {
             os_log("Unable to decode isFavorite for a Flight object.", log: OSLog.default, type: .debug)
             return nil
         }
