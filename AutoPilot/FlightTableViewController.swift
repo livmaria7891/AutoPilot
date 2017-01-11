@@ -55,8 +55,9 @@ class FlightTableViewController: UITableViewController {
         
         cell.flightName.text = flight.name
         cell.categoryImage.image = nil
-        cell.favoriteImage.image = flight.favImage
-        
+        if(flight.isFavorite){
+            cell.favoriteImage.image = UIImage(named: "placeHolderStar")
+        }
         return cell
     }
 
