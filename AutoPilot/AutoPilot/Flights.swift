@@ -45,8 +45,11 @@ class Flight: NSObject, NSCoding {
         
         // Initialize stored properties.
         self.name = name
+        self.steps = steps
+        self.supplies = supplies
         self.isFavorite = isFavorite
         
+        print(self.steps)
 
     }
     

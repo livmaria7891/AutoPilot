@@ -9,7 +9,9 @@
 import UIKit
 import os.log
 
-class CreateViewController: UIViewController, UITextFieldDelegate {
+class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate {
+    
+    
     
     //MARK: Properties
     @IBOutlet weak var nameTextField: UITextField!
@@ -17,11 +19,16 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    
     /*
      This value is either passed by `FlightTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
+    var steps = [String]()
     
     
     //MARK: Overrides
@@ -33,13 +40,29 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         //Set up View with existing Flight info
         if let flight = flight {
             nameLabel.text = flight.name
-            nameTextField.text   = flight.name
+            nameTextField.text = flight.name
         }
         
         
         // Enable the Save button only if the text field has a valid Flight name.
+        loadSteps()
         updateSaveButtonState()
+        
     }
+    
+  func loadSteps(){
+        print("BREADCRUMBS >>>>> 1")
+        if let flight = flight {
+            print("BREADCRUMBS >>>>> 2")
+            for step in flight.steps!{
+                print("BREADCRUMBS >>>>> 3")
+                print("STEP: \(step)")
+                steps.append(step)
+                print("BREADCRUMBS >>>>> 4")
+            }
+        }
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,13 +86,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
        updateSaveButtonState()
        navigationItem.title = textField.text 
-        
-        //Code to set Name in Model
+       
         
     }
     
 
-    
     // MARK: - Navigation
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -106,6 +127,27 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //MARK: Table View
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return steps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stepCell", for: indexPath)
+
+        
+        let step = steps[indexPath.row]
+        cell.textLabel?.text = step
+      
+        return cell
+    }
     //MARK: Private Methods
     
     private func updateSaveButtonState() {
@@ -116,3 +158,5 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
  
 
 }
+
+
