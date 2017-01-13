@@ -121,7 +121,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oTe-2T-H63">
-                                <rect key="frame" x="16" y="232" width="343" height="415"/>
+                                <rect key="frame" x="16" y="278" width="343" height="369"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -147,6 +147,13 @@
                                     <action selector="Start:" destination="eY7-Ml-thl" eventType="touchUpInside" id="iD2-7Q-wdD"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a step" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u95-ca-kyc">
+                                <rect key="frame" x="16" y="240" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -163,6 +170,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addStepTextField" destination="u95-ca-kyc" id="FIP-uc-yzo"/>
                         <outlet property="nameLabel" destination="hPA-5x-6Ms" id="kLM-Le-DHI"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
                         <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>

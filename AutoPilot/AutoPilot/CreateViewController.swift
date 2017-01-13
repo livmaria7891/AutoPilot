@@ -21,6 +21,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     
+    @IBOutlet weak var addStepTextField: UITextField!
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -29,7 +32,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
-    var steps = [String]()
+    var steps = [String]() { didSet {
+        self.tableView.reloadData()
+        }
+    }
     var flightName = String()
     
     
@@ -38,6 +44,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         super.viewDidLoad()
 
         nameTextField.delegate = self
+        addStepTextField.delegate = self
         
         //Set up View with existing Flight info
         if let flight = flight {
@@ -84,10 +91,18 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
-        nameTextField.resignFirstResponder()
+        if(textField == nameTextField){
+            nameTextField.resignFirstResponder()
+         }
+        
+        if(textField == addStepTextField) {
+            addStepTextField.resignFirstResponder()
+        }
         
         return true
+   
     }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
@@ -95,9 +110,22 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-       updateSaveButtonState()
-       navigationItem.title = textField.text 
-       
+        
+        if(textField == nameTextField){
+           updateSaveButtonState()
+           navigationItem.title = textField.text 
+        }
+        
+        if(textField == addStepTextField) {
+            let newStep = addStepTextField.text ?? ""
+            if(!newStep.isEmpty){
+                steps.append(newStep)
+            }
+            
+            addStepTextField.text = ""
+            print(steps)
+        }
+        
         
     }
     

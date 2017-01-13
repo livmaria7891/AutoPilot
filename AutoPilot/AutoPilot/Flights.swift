@@ -36,7 +36,7 @@ class Flight: NSObject, NSCoding {
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]? = nil, supplies: [String]? = nil, isFavorite: Bool = false) {
+    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
