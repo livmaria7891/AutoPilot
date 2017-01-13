@@ -36,8 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nextAction = UNNotificationAction(identifier: "next", title: "Done!", options: [])
         let skipAction = UNNotificationAction(identifier: "skip", title: "Skip This Step", options: [])
         let endAction = UNNotificationAction(identifier: "end", title: "End This Flight", options: [])
-        let category = UNNotificationCategory(identifier: "onFlightCategory", actions: [nextAction, skipAction, endAction], intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([category])
+        let category1 = UNNotificationCategory(identifier: "onFlightCategory", actions: [nextAction, skipAction, endAction], intentIdentifiers: [], options: [])
+        let category2 = UNNotificationCategory(identifier: "flightCompletedCategory", actions: [], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category1, category2])
         return true
     }
     
@@ -49,12 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         //Something like if there's an active list, schedule notification.
-       
-        print(">>>>>> BREADCRUMBS 2")
         if flightIsRunning && notificationCounter < currentFlightSteps.count {
-            print(">>>>>> BREADCRUMBS 3")
+
             scheduleNotification()
-            print(">>>>>> BREADCRUMBS 6")
+
             
         }
     }
@@ -72,12 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func scheduleNotification() {
-        print(">>>>>> BREADCRUMBS 4")
+        
         UNUserNotificationCenter.current().delegate = self
         
         // Fires 1 seconds after called
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        print(">>>>>> BREADCRUMBS 5")
         let content = UNMutableNotificationContent()
         content.title = flightName
         content.body = currentFlightSteps[notificationCounter]
@@ -88,16 +86,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        For a Picture -- But it doesn't work as is yet
 //      In the tutorial, the photo is not in Assets.. try to rewrite this without the bundle main, maybe?
         
-        if let path = Bundle.main.path(forResource: "defaultPhoto", ofType: "png") {
-            let url = URL(fileURLWithPath: path)
-            
-            do {
-                let attachment = try UNNotificationAttachment(identifier: "defaultPhoto", url: url, options: nil)
-                content.attachments = [attachment]
-            } catch {
-                print("The attachment was not loaded.")
+//        if let path = Bundle.main.path(forResource: "defaultPhoto", ofType: "png") {
+//            let url = URL(fileURLWithPath: path)
+//            
+//            do {
+//                let attachment = try UNNotificationAttachment(identifier: "defaultPhoto", url: url, options: nil)
+//                content.attachments = [attachment]
+//            } catch {
+//                print("The attachment was not loaded.")
+//            }
+//        }
+        
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
             }
         }
+    }
+    
+    func sendCompletedNotification(){
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = flightName
+        content.body = "Congratulations! You finished \"\(flightName)\"!!"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "flightCompletedCategory"
         
         let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
         
@@ -118,6 +134,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if notificationCounter >= (currentFlightSteps.count - 1 ){
             flightIsRunning = false
+            sendCompletedNotification()
             return
         }
         if response.actionIdentifier == "next" {
