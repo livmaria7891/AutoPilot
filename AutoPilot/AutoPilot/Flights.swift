@@ -36,7 +36,7 @@ class Flight: NSObject, NSCoding {
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]? = nil, supplies: [String]? = nil, isFavorite: Bool = false) {
+    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -45,8 +45,9 @@ class Flight: NSObject, NSCoding {
         
         // Initialize stored properties.
         self.name = name
+        self.steps = steps
+        self.supplies = supplies
         self.isFavorite = isFavorite
-        
 
     }
     
@@ -73,10 +74,7 @@ class Flight: NSObject, NSCoding {
         
         let supplies = aDecoder.decodeObject(forKey: PropertyKey.supplies) as? [String]
         
-        guard let isFavorite = aDecoder.decodeBool(forKey: PropertyKey.isFavorite) as? Bool else {
-            os_log("Unable to decode isFavorite for a Flight object.", log: OSLog.default, type: .debug)
-            return nil
-        }
+        let isFavorite = aDecoder.decodeBool(forKey: PropertyKey.isFavorite)
         
         
         // Must call designated initializer.

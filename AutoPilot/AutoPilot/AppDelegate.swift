@@ -14,7 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-
+    var notificationCounter = 0
+    var flightIsRunning = false
+    var currentFlightSteps = [String]()
+    var flightName = String(){
+        didSet{
+            notificationCounter = 0
+        }
+    }
+    
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -23,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Notification access denied.")
             }
         }
-        
         let nextAction = UNNotificationAction(identifier: "next", title: "Done!", options: [])
         let skipAction = UNNotificationAction(identifier: "skip", title: "Skip This Step", options: [])
         let endAction = UNNotificationAction(identifier: "end", title: "End This Flight", options: [])
@@ -39,9 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        scheduleNotification()
+        //Something like if there's an active list, schedule notification.
+       
+        print(">>>>>> BREADCRUMBS 2")
+        if flightIsRunning && notificationCounter < currentFlightSteps.count {
+            print(">>>>>> BREADCRUMBS 3")
+            scheduleNotification()
+            print(">>>>>> BREADCRUMBS 6")
+            
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -57,14 +72,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func scheduleNotification() {
+        print(">>>>>> BREADCRUMBS 4")
         UNUserNotificationCenter.current().delegate = self
         
         // Fires 1 seconds after called
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        
+        print(">>>>>> BREADCRUMBS 5")
         let content = UNMutableNotificationContent()
-        content.title = "Hey Olivia"
-        content.body = "Here's something on your list!"
+        content.title = flightName
+        content.body = currentFlightSteps[notificationCounter]
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "onFlightCategory"
         
@@ -100,16 +116,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("GOT TO COMPLETION HANDLER")
+        if notificationCounter >= (currentFlightSteps.count - 1 ){
+            flightIsRunning = false
+            return
+        }
         if response.actionIdentifier == "next" {
             print("next was clicked")
+            notificationCounter += 1
             scheduleNotification()
         } else if response.actionIdentifier == "skip" {
+            notificationCounter += 1
             print("skip was clicked")
             scheduleNotification()
         } else if response.actionIdentifier == "end"{
+            flightIsRunning = false
             print("end was clicked")
-            scheduleNotification()
         }
     }
 }

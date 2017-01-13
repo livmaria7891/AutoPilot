@@ -20,8 +20,11 @@ class FlightTableViewController: UITableViewController {
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        //TESTING PURPOSES ONLY (uncomment if statement below)
+//       loadSampleFlights()
 
-        // Load any saved meals, otherwise load sample data.
+//        // Load any saved meals, otherwise load sample data.
         if let savedFlights = loadFlights() {
             flights += savedFlights
         }

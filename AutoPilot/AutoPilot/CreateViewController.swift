@@ -9,67 +9,131 @@
 import UIKit
 import os.log
 
-class CreateViewController: UIViewController, UITextFieldDelegate {
+class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate {
+    
     
     //MARK: Properties
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
+    
+    @IBOutlet weak var addStepTextField: UITextField!
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     
     /*
      This value is either passed by `FlightTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
+    var steps = [String]() { didSet {
+        self.tableView.reloadData()
+        }
+    }
+    var flightName = String()
+    var isFavorite = Bool()
     
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
+        print(flight ?? ">>>>NO FLIGHT HERE")
 
         nameTextField.delegate = self
+        addStepTextField.delegate = self
         
         //Set up View with existing Flight info
-        if let flight = flight {
-            nameLabel.text = flight.name
-            nameTextField.text   = flight.name
+        if flight != nil {
+            nameLabel.text = flightName
+            nameTextField.text = flightName
         }
         
         
         // Enable the Save button only if the text field has a valid Flight name.
+        
         updateSaveButtonState()
+        
     }
+    
+  func loadData(){
+
+        if let flight = flight {
+            flightName = flight.name
+            
+            for step in flight.steps!{
+                steps.append(step)
+            }
+            
+            isFavorite = flight.isFavorite
+        }
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: UITextFieldDelegate
+    // MARK: Actions
+    
+    @IBAction func Start(_ sender: Any) {
+        appDelegate.currentFlightSteps = steps
+        appDelegate.flightName = flightName
+        appDelegate.flightIsRunning = true
+        
+        
+    }
+    
+    
+    // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
-        nameTextField.resignFirstResponder()
+        if(textField == nameTextField){
+            nameTextField.resignFirstResponder()
+         }
+        
+        if(textField == addStepTextField) {
+            addStepTextField.resignFirstResponder()
+        }
         
         return true
+   
     }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
-        saveButton.isEnabled = false
+//        saveButton.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-       updateSaveButtonState()
-       navigationItem.title = textField.text 
         
-        //Code to set Name in Model
+        if(textField == nameTextField){
+           updateSaveButtonState()
+           navigationItem.title = textField.text 
+        }
+        
+        if(textField == addStepTextField) {
+            let newStep = addStepTextField.text ?? ""
+            if(!newStep.isEmpty){
+                steps.append(newStep)
+            }
+            saveFlight()
+            addStepTextField.text = ""
+        }
+        
         
     }
     
 
-    
     // MARK: - Navigation
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -99,20 +163,63 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
  
         
         let name = nameTextField.text ?? ""
+        let steps = self.steps
+        let isFavorite = self.isFavorite
         
         
         // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
-        flight = Flight(name: name, steps: [], supplies: [], isFavorite: false )
+        flight = Flight(name: name, steps: steps, supplies: [], isFavorite: isFavorite )
         
     }
     
+    //MARK: Table View
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return steps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stepCell", for: indexPath)
+
+        
+        let step = steps[indexPath.row]
+        cell.textLabel?.text = step
+      
+        return cell
+    }
     //MARK: Private Methods
     
     private func updateSaveButtonState() {
         // Disable the Save button if the text field is empty.
-        let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+//        let text = nameTextField.text ?? ""
+//        saveButton.isEnabled = !text.isEmpty
     }
+    
+    private func saveFlight() {
+
+        if flight != nil{
+            
+            let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
+            
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
+            if isSuccessfulSave {
+                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
+            } else {
+                os_log("Failed to save flight...", log: OSLog.default, type: .error)
+            
+            }
+            
+        }
+    }
+    
  
 
 }
+
+

@@ -107,26 +107,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Flight Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aQQ-4G-BdY">
-                                <rect key="frame" x="16" y="367" width="343" height="30"/>
+                                <rect key="frame" x="16" y="148" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Flight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO1-Io-Yib">
-                                <rect key="frame" x="16" y="164" width="343" height="164"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="KohinoorTelugu-Regular" family="Kohinoor Telugu" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flight Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPA-5x-6Ms">
-                                <rect key="frame" x="16" y="446" width="343" height="68"/>
+                                <rect key="frame" x="16" y="64" width="343" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oTe-2T-H63">
+                                <rect key="frame" x="16" y="278" width="343" height="369"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="stepCell" id="ht3-Ma-mt8">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ht3-Ma-mt8" id="9vz-Ir-SN2">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="eY7-Ml-thl" id="Jfv-in-tg3"/>
+                                    <outlet property="delegate" destination="eY7-Ml-thl" id="BqZ-PP-FPc"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ty-4j-cFh">
+                                <rect key="frame" x="16" y="186" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="Start:" destination="eY7-Ml-thl" eventType="touchUpInside" id="iD2-7Q-wdD"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a step" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u95-ca-kyc">
+                                <rect key="frame" x="16" y="240" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -143,16 +170,18 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="label" destination="pO1-Io-Yib" id="tpe-T2-je0"/>
+                        <outlet property="addStepTextField" destination="u95-ca-kyc" id="FIP-uc-yzo"/>
                         <outlet property="nameLabel" destination="hPA-5x-6Ms" id="kLM-Le-DHI"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
                         <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>
+                        <outlet property="startButton" destination="7ty-4j-cFh" id="Op6-ni-b97"/>
+                        <outlet property="tableView" destination="oTe-2T-H63" id="keM-j9-BrH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bWI-0F-dZu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3210" y="-439"/>
+            <point key="canvasLocation" x="3208.8000000000002" y="-439.43028485757122"/>
         </scene>
         <!--My Flights-->
         <scene sceneID="MmM-FP-HIv">
@@ -361,7 +390,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRW-aL-eKA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kU3-K5-TxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kU3-K5-TxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -379,7 +408,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="auz-m3-0Bs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kKu-sn-3bs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kKu-sn-3bs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -399,7 +428,7 @@
         <image name="createButton" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="btp-Cd-Ba2"/>
+        <segue reference="eLF-M8-SXv"/>
         <segue reference="EMv-YQ-Req"/>
         <segue reference="caL-lN-lD9"/>
     </inferredMetricsTieBreakers>
