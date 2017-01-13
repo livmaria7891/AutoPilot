@@ -37,24 +37,27 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     var flightName = String()
+    var isFavorite = Bool()
     
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
+        print(flight ?? ">>>>NO FLIGHT HERE")
 
         nameTextField.delegate = self
         addStepTextField.delegate = self
         
         //Set up View with existing Flight info
-        if let flight = flight {
-            nameLabel.text = flight.name
-            nameTextField.text = flight.name
+        if flight != nil {
+            nameLabel.text = flightName
+            nameTextField.text = flightName
         }
         
         
         // Enable the Save button only if the text field has a valid Flight name.
-        loadData()
+        
         updateSaveButtonState()
         
     }
@@ -63,9 +66,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 
         if let flight = flight {
             flightName = flight.name
+            
             for step in flight.steps!{
                 steps.append(step)
             }
+            
+            isFavorite = flight.isFavorite
         }
     }
     
@@ -82,7 +88,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
         
-        print(">>>>>> BREADCRUMBS 1")
         
     }
     
@@ -106,7 +111,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
-        saveButton.isEnabled = false
+//        saveButton.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -121,9 +126,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             if(!newStep.isEmpty){
                 steps.append(newStep)
             }
-            
+            saveFlight()
             addStepTextField.text = ""
-            print(steps)
         }
         
         
@@ -159,10 +163,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
  
         
         let name = nameTextField.text ?? ""
+        let steps = self.steps
+        let isFavorite = self.isFavorite
         
         
         // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
-        flight = Flight(name: name, steps: [], supplies: [], isFavorite: false )
+        flight = Flight(name: name, steps: steps, supplies: [], isFavorite: isFavorite )
         
     }
     
@@ -191,9 +197,27 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     private func updateSaveButtonState() {
         // Disable the Save button if the text field is empty.
-        let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+//        let text = nameTextField.text ?? ""
+//        saveButton.isEnabled = !text.isEmpty
     }
+    
+    private func saveFlight() {
+
+        if flight != nil{
+            
+            let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
+            
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
+            if isSuccessfulSave {
+                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
+            } else {
+                os_log("Failed to save flight...", log: OSLog.default, type: .error)
+            
+            }
+            
+        }
+    }
+    
  
 
 }
