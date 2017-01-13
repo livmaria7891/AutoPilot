@@ -1,3 +1,9 @@
 *.DS_Store
 
 AutoPilot.xcodeproj/project.xcworkspace/xcuserdata
+
+AutoPilot.xcodeproj/xcuserdata/olivia.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+
+AutoPilot.xcodeproj/xcuserdata/olivia.xcuserdatad/xcschemes/AutoPilot.xcscheme
+
+AutoPilot.xcodeproj/xcuserdata/olivia.xcuserdatad/xcschemes/xcschememanagement.plist
