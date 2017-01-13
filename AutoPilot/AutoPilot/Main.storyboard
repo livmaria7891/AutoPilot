@@ -140,9 +140,12 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ty-4j-cFh">
-                                <rect key="frame" x="164" y="194" width="46" height="30"/>
+                                <rect key="frame" x="16" y="186" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="Start:" destination="eY7-Ml-thl" eventType="touchUpInside" id="iD2-7Q-wdD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -163,6 +166,7 @@
                         <outlet property="nameLabel" destination="hPA-5x-6Ms" id="kLM-Le-DHI"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
                         <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>
+                        <outlet property="startButton" destination="7ty-4j-cFh" id="Op6-ni-b97"/>
                         <outlet property="tableView" destination="oTe-2T-H63" id="keM-j9-BrH"/>
                     </connections>
                 </viewController>

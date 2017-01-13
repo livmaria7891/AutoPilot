@@ -12,15 +12,16 @@ import os.log
 class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate {
     
     
-    
     //MARK: Properties
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
-    
     
     
     /*
@@ -29,6 +30,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      */
     var flight: Flight?
     var steps = [String]()
+    var flightName = String()
     
     
     //MARK: Overrides
@@ -45,20 +47,17 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         
         // Enable the Save button only if the text field has a valid Flight name.
-        loadSteps()
+        loadData()
         updateSaveButtonState()
         
     }
     
-  func loadSteps(){
-        print("BREADCRUMBS >>>>> 1")
+  func loadData(){
+
         if let flight = flight {
-            print("BREADCRUMBS >>>>> 2")
+            flightName = flight.name
             for step in flight.steps!{
-                print("BREADCRUMBS >>>>> 3")
-                print("STEP: \(step)")
                 steps.append(step)
-                print("BREADCRUMBS >>>>> 4")
             }
         }
     }
@@ -69,7 +68,19 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: UITextFieldDelegate
+    // MARK: Actions
+    
+    @IBAction func Start(_ sender: Any) {
+        appDelegate.currentFlightSteps = steps
+        appDelegate.flightName = flightName
+        appDelegate.flightIsRunning = true
+        
+        print(">>>>>> BREADCRUMBS 1")
+        
+    }
+    
+    
+    // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
