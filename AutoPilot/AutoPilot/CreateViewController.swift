@@ -21,9 +21,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
-    
     @IBOutlet weak var addStepTextField: UITextField!
-    
+    @IBOutlet weak var addSuppliesTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,12 +32,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
-    var steps = [String]()
-//        { didSet {
-//        self.tableView.reloadData()
-//        }
-//    }
+    
     var flightName = String()
+    var steps = [String]()
+    var supplies = [String](){
+        didSet{
+            print(supplies)
+        }
+    }
     var isFavorite = Bool()
     
     
@@ -49,6 +50,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 
         nameTextField.delegate = self
         addStepTextField.delegate = self
+        addSuppliesTextField.delegate = self
+        
         
         //Set up View with existing Flight info
         if flight != nil {
@@ -67,6 +70,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 
         if let flight = flight {
             flightName = flight.name
+            
+            for item in flight.supplies!{
+                print(">>>>BREADCRUMBS 1")
+                supplies.append(item)
+                
+            }
             
             for step in flight.steps!{
                 steps.append(step)
@@ -93,7 +102,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     @IBAction func editMode(_ sender: Any) {
         tableView.setEditing(true, animated: true)
-        print(">>>>BREADCRUMBS 1")
     }
     
     
@@ -108,6 +116,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         if(textField == addStepTextField) {
             addStepTextField.resignFirstResponder()
+        }
+        
+        if(textField == addSuppliesTextField) {
+            print(">>>>BREADCRUMBS 2")
+            addSuppliesTextField.resignFirstResponder()
         }
         
         return true
@@ -137,6 +150,22 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             addStepTextField.text = ""
         }
         
+        if(textField == addSuppliesTextField) {
+            print(">>>>BREADCRUMBS 3")
+            let newItem = addSuppliesTextField.text ?? ""
+            print(newItem)
+            if(!newItem.isEmpty){
+                print(">>>>BREADCRUMBS 4")
+                print(newItem)
+                supplies.append(newItem)
+            }
+            print(supplies)
+            print(">>>>BREADCRUMBS 5")
+            saveFlight()
+            print(">>>>BREADCRUMBS 6")
+            addSuppliesTextField.text = ""
+            
+        }
         
     }
     
@@ -171,11 +200,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         let name = nameTextField.text ?? ""
         let steps = self.steps
+        let supplies = self.supplies
         let isFavorite = self.isFavorite
         
         
         // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
-        flight = Flight(name: name, steps: steps, supplies: [], isFavorite: isFavorite )
+        flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite )
         
     }
     
@@ -203,16 +233,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     //for deleting
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        print(">>>>BREADCRUMBS 2")
+  
         print(indexPath.row)
         if editingStyle == .delete {
-            print(">>>>BREADCRUMBS 3")
             steps.remove(at: indexPath.row)
-            print(">>>>BREADCRUMBS 4")
             saveFlight()
-            print(">>>>BREADCRUMBS 6")
             tableView.deleteRows(at: [indexPath], with: .fade)
-            print(">>>>BREADCRUMBS 7")
+        
         }
     }
     //MARK: Private Methods
@@ -224,10 +251,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func saveFlight() {
-        print(">>>>BREADCRUMBS 5")
         if flight != nil{
             
-            let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
+            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite)
             
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
             if isSuccessfulSave {
