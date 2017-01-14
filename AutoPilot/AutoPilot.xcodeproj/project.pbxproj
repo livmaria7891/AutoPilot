@@ -18,7 +18,6 @@
 		456D8C6C1E20A1F4002F67D6 /* defaultPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 456D8C6B1E20A1F4002F67D6 /* defaultPhoto.png */; };
 		456D8C6E1E21E182002F67D6 /* SingleFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D8C6D1E21E182002F67D6 /* SingleFlightViewController.swift */; };
 		45888E431E257A3600297060 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45888E421E257A3600297060 /* HomeViewController.swift */; };
-		458C45F11E28073E00530025 /* StepsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C45F01E28073E00530025 /* StepsTableViewController.swift */; };
 		45FB55861E1AD43B00AC9A0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FB55851E1AD43B00AC9A0E /* AppDelegate.swift */; };
 		45FB558D1E1AD43B00AC9A0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45FB558C1E1AD43B00AC9A0E /* Assets.xcassets */; };
 		45FB55901E1AD43B00AC9A0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45FB558E1E1AD43B00AC9A0E /* LaunchScreen.storyboard */; };
@@ -36,7 +35,6 @@
 		456D8C6B1E20A1F4002F67D6 /* defaultPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultPhoto.png; sourceTree = "<group>"; };
 		456D8C6D1E21E182002F67D6 /* SingleFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleFlightViewController.swift; sourceTree = "<group>"; };
 		45888E421E257A3600297060 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		458C45F01E28073E00530025 /* StepsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTableViewController.swift; sourceTree = "<group>"; };
 		45FB55821E1AD43B00AC9A0E /* AutoPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FB55851E1AD43B00AC9A0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45FB558C1E1AD43B00AC9A0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				455945631E202D7D00491077 /* Main.storyboard */,
-				458C45F01E28073E00530025 /* StepsTableViewController.swift */,
 				45888E421E257A3600297060 /* HomeViewController.swift */,
 				456D8C6D1E21E182002F67D6 /* SingleFlightViewController.swift */,
 				45FB55851E1AD43B00AC9A0E /* AppDelegate.swift */,
@@ -178,7 +175,6 @@
 				45888E431E257A3600297060 /* HomeViewController.swift in Sources */,
 				45FB55861E1AD43B00AC9A0E /* AppDelegate.swift in Sources */,
 				455945621E1F0A4600491077 /* FlightTableViewController.swift in Sources */,
-				458C45F11E28073E00530025 /* StepsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

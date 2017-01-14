@@ -20,6 +20,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var addStepTextField: UITextField!
     
@@ -32,10 +33,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
-    var steps = [String]() { didSet {
-        self.tableView.reloadData()
-        }
-    }
+    var steps = [String]()
+//        { didSet {
+//        self.tableView.reloadData()
+//        }
+//    }
     var flightName = String()
     var isFavorite = Bool()
     
@@ -44,7 +46,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-        print(flight ?? ">>>>NO FLIGHT HERE")
 
         nameTextField.delegate = self
         addStepTextField.delegate = self
@@ -88,8 +89,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
         
-        
     }
+    
+    @IBAction func editMode(_ sender: Any) {
+        tableView.setEditing(true, animated: true)
+        print(">>>>BREADCRUMBS 1")
+    }
+    
     
     
     // MARK: UITextFieldDelegate
@@ -126,6 +132,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             if(!newStep.isEmpty){
                 steps.append(newStep)
             }
+            self.tableView.reloadData()
             saveFlight()
             addStepTextField.text = ""
         }
@@ -193,6 +200,21 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
       
         return cell
     }
+    //for deleting
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print(">>>>BREADCRUMBS 2")
+        print(indexPath.row)
+        if editingStyle == .delete {
+            print(">>>>BREADCRUMBS 3")
+            steps.remove(at: indexPath.row)
+            print(">>>>BREADCRUMBS 4")
+            saveFlight()
+            print(">>>>BREADCRUMBS 6")
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            print(">>>>BREADCRUMBS 7")
+        }
+    }
     //MARK: Private Methods
     
     private func updateSaveButtonState() {
@@ -202,7 +224,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func saveFlight() {
-
+        print(">>>>BREADCRUMBS 5")
         if flight != nil{
             
             let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
