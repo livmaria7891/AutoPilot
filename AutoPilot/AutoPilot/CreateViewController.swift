@@ -56,9 +56,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             nameTextField.text = flightName
         }
         
+        self.tableView.isEditing = true
         
         // Enable the Save button only if the text field has a valid Flight name.
-        
         updateSaveButtonState()
         
     }
@@ -93,9 +93,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     @IBAction func editMode(_ sender: Any) {
         tableView.setEditing(true, animated: true)
-        print(">>>>BREADCRUMBS 1")
     }
-    
     
     
     // MARK: UITextFieldDelegate
@@ -200,21 +198,44 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
       
         return cell
     }
+    
     //for deleting
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        print(">>>>BREADCRUMBS 2")
+        
         print(indexPath.row)
         if editingStyle == .delete {
-            print(">>>>BREADCRUMBS 3")
+       
             steps.remove(at: indexPath.row)
-            print(">>>>BREADCRUMBS 4")
+         
             saveFlight()
-            print(">>>>BREADCRUMBS 6")
+           
             tableView.deleteRows(at: [indexPath], with: .fade)
-            print(">>>>BREADCRUMBS 7")
+    
         }
     }
+    
+    //For Changing Order of Cells
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return .none
+//    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.steps[sourceIndexPath.row]
+        steps.remove(at: sourceIndexPath.row)
+        steps.insert(movedObject, at: destinationIndexPath.row)
+        NSLog("%@", "\(sourceIndexPath.row) => \(destinationIndexPath.row) \(steps)")
+        // To check for correctness enable: self.tableView.reloadData()
+        
+        print(steps)
+        saveFlight()
+    }
+    
     //MARK: Private Methods
     
     private func updateSaveButtonState() {
@@ -224,7 +245,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func saveFlight() {
-        print(">>>>BREADCRUMBS 5")
+
         if flight != nil{
             
             let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
