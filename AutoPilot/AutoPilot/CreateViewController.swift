@@ -37,9 +37,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     var steps = [String]()
     var supplies = [String](){
         didSet{
-            print(supplies)
+            suppliesString = "Here's what you'll need: \n"
+            for item in supplies {
+
+                suppliesString += "\(item) \n"
+            }
         }
     }
+    var suppliesString = ""
     var isFavorite = Bool()
     
     
@@ -64,6 +69,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         updateSaveButtonState()
         
+        // TEST
+        print(supplies)
+        print(suppliesString)
+        
     }
     
   func loadData(){
@@ -72,7 +81,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             flightName = flight.name
             
             for item in flight.supplies!{
-                print(">>>>BREADCRUMBS 1")
                 supplies.append(item)
                 
             }
@@ -97,7 +105,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.currentFlightSteps = steps
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
-        
+        if (supplies.count > 0){
+            appDelegate.suppliesString = suppliesString
+        }
     }
     
     @IBAction func editMode(_ sender: Any) {
@@ -151,18 +161,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
         
         if(textField == addSuppliesTextField) {
-            print(">>>>BREADCRUMBS 3")
+            
             let newItem = addSuppliesTextField.text ?? ""
             print(newItem)
             if(!newItem.isEmpty){
-                print(">>>>BREADCRUMBS 4")
-                print(newItem)
                 supplies.append(newItem)
             }
             print(supplies)
-            print(">>>>BREADCRUMBS 5")
             saveFlight()
-            print(">>>>BREADCRUMBS 6")
             addSuppliesTextField.text = ""
             
         }

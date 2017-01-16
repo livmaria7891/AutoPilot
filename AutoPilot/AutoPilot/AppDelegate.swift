@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notificationCounter = 0
         }
     }
-    
+    var suppliesString: String?
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -36,9 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nextAction = UNNotificationAction(identifier: "next", title: "Done!", options: [])
         let skipAction = UNNotificationAction(identifier: "skip", title: "Skip This Step", options: [])
         let endAction = UNNotificationAction(identifier: "end", title: "End This Flight", options: [])
+        let continueAction = UNNotificationAction(identifier: "continue", title: "Got It", options: [])
         let category1 = UNNotificationCategory(identifier: "onFlightCategory", actions: [nextAction, skipAction, endAction], intentIdentifiers: [], options: [])
         let category2 = UNNotificationCategory(identifier: "flightCompletedCategory", actions: [], intentIdentifiers: [], options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([category1, category2])
+        let category3 = UNNotificationCategory(identifier: "genericNotificationCategory", actions: [continueAction], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([category1, category2, category3])
         return true
     }
     
@@ -51,9 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         //Something like if there's an active list, schedule notification.
         if flightIsRunning && notificationCounter < currentFlightSteps.count {
-
-            scheduleNotification()
-
+            
+            
+            // If there are supplies, send notification
+            if suppliesString != nil {
+                scheduleSuppliesNotification(message: suppliesString!)
+            } else {
+                scheduleNotification()
+            }
             
         }
     }
@@ -107,6 +114,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func scheduleSuppliesNotification(message: String = "No supplies needed for this one! (Click Got It to continue)"){
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = flightName
+        content.body = message
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "genericNotificationCategory"
+        
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) {(error) in
+            if let error = error {
+                print("Uh oh! We had an error: \(error)")
+            }
+        }
+    }
+    
     func sendCompletedNotification(){
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let content = UNMutableNotificationContent()
@@ -132,11 +160,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "continue" {
+            scheduleNotification()
+        }
+        
         if notificationCounter >= (currentFlightSteps.count - 1 ){
             flightIsRunning = false
             sendCompletedNotification()
             return
         }
+        
         if response.actionIdentifier == "next" {
             print("next was clicked")
             notificationCounter += 1
