@@ -21,9 +21,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
-    
     @IBOutlet weak var addStepTextField: UITextField!
-    
+    @IBOutlet weak var addSuppliesTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,12 +32,19 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
-    var steps = [String]()
-//        { didSet {
-//        self.tableView.reloadData()
-//        }
-//    }
+    
     var flightName = String()
+    var steps = [String]()
+    var supplies = [String](){
+        didSet{
+            suppliesString = "Here's what you'll need: \n"
+            for item in supplies {
+
+                suppliesString += "\(item) \n"
+            }
+        }
+    }
+    var suppliesString = ""
     var isFavorite = Bool()
     
     
@@ -49,6 +55,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 
         nameTextField.delegate = self
         addStepTextField.delegate = self
+        addSuppliesTextField.delegate = self
+        
         
         //Set up View with existing Flight info
         if flight != nil {
@@ -61,12 +69,21 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         // Enable the Save button only if the text field has a valid Flight name.
         updateSaveButtonState()
         
+        // TEST
+        print(supplies)
+        print(suppliesString)
+        
     }
     
   func loadData(){
 
         if let flight = flight {
             flightName = flight.name
+            
+            for item in flight.supplies!{
+                supplies.append(item)
+                
+            }
             
             for step in flight.steps!{
                 steps.append(step)
@@ -88,6 +105,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.currentFlightSteps = steps
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
+
         
         let alertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
@@ -95,6 +113,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         present(alertController, animated: true, completion: nil)
         
+        if (supplies.count > 0){
+            appDelegate.suppliesString = suppliesString
+        }
     }
     
     @IBAction func editMode(_ sender: Any) {
@@ -112,6 +133,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         if(textField == addStepTextField) {
             addStepTextField.resignFirstResponder()
+        }
+        
+        if(textField == addSuppliesTextField) {
+            print(">>>>BREADCRUMBS 2")
+            addSuppliesTextField.resignFirstResponder()
         }
         
         return true
@@ -141,6 +167,18 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             addStepTextField.text = ""
         }
         
+        if(textField == addSuppliesTextField) {
+            
+            let newItem = addSuppliesTextField.text ?? ""
+            print(newItem)
+            if(!newItem.isEmpty){
+                supplies.append(newItem)
+            }
+            print(supplies)
+            saveFlight()
+            addSuppliesTextField.text = ""
+            
+        }
         
     }
     
@@ -175,11 +213,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         let name = nameTextField.text ?? ""
         let steps = self.steps
+        let supplies = self.supplies
         let isFavorite = self.isFavorite
         
         
         // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
-        flight = Flight(name: name, steps: steps, supplies: [], isFavorite: isFavorite )
+        flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite )
         
     }
     
@@ -208,6 +247,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     //for deleting
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
         
         print(indexPath.row)
         if editingStyle == .delete {
@@ -217,7 +257,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             saveFlight()
            
             tableView.deleteRows(at: [indexPath], with: .fade)
-    
+  
+        print(indexPath.row)
+        if editingStyle == .delete {
+            steps.remove(at: indexPath.row)
+            saveFlight()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        
         }
     }
     
@@ -251,10 +297,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func saveFlight() {
-
+      
         if flight != nil{
             
-            let thisFlight = Flight(name: flightName, steps: steps, isFavorite: isFavorite)
+            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite)
             
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
             if isSuccessfulSave {
