@@ -64,9 +64,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             nameTextField.text = flightName
         }
         
+//        self.tableView.isEditing = true
         
         // Enable the Save button only if the text field has a valid Flight name.
-        
         updateSaveButtonState()
         
         // TEST
@@ -105,6 +105,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.currentFlightSteps = steps
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
+
+        
+        let alertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
         if (supplies.count > 0){
             appDelegate.suppliesString = suppliesString
         }
@@ -113,7 +121,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBAction func editMode(_ sender: Any) {
         tableView.setEditing(true, animated: true)
     }
-    
     
     
     // MARK: UITextFieldDelegate
@@ -236,9 +243,20 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
       
         return cell
     }
+    
     //for deleting
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        
+        print(indexPath.row)
+        if editingStyle == .delete {
+       
+            steps.remove(at: indexPath.row)
+         
+            saveFlight()
+           
+            tableView.deleteRows(at: [indexPath], with: .fade)
   
         print(indexPath.row)
         if editingStyle == .delete {
@@ -248,6 +266,28 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         }
     }
+    
+    //For Changing Order of Cells
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//        return .none
+//    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.steps[sourceIndexPath.row]
+        steps.remove(at: sourceIndexPath.row)
+        steps.insert(movedObject, at: destinationIndexPath.row)
+        NSLog("%@", "\(sourceIndexPath.row) => \(destinationIndexPath.row) \(steps)")
+        // To check for correctness enable: self.tableView.reloadData()
+        
+        print(steps)
+        saveFlight()
+    }
+    
     //MARK: Private Methods
     
     private func updateSaveButtonState() {
@@ -257,6 +297,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func saveFlight() {
+      
         if flight != nil{
             
             let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite)
