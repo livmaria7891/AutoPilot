@@ -67,7 +67,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 //        self.tableView.isEditing = true
         
         // Enable the Save button only if the text field has a valid Flight name.
-        updateSaveButtonState()
+//        updateSaveButtonState()
         
         // TEST
         print(supplies)
@@ -136,7 +136,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
         
         if(textField == addSuppliesTextField) {
-            print(">>>>BREADCRUMBS 2")
             addSuppliesTextField.resignFirstResponder()
         }
         
@@ -153,8 +152,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if(textField == nameTextField){
-           updateSaveButtonState()
-           navigationItem.title = textField.text 
+//           updateSaveButtonState()
+           navigationItem.title = textField.text
         }
         
         if(textField == addStepTextField) {
@@ -257,8 +256,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             saveFlight()
            
             tableView.deleteRows(at: [indexPath], with: .fade)
-  
-        print(indexPath.row)
+
+        }
+        
         if editingStyle == .delete {
             steps.remove(at: indexPath.row)
             saveFlight()
@@ -316,5 +316,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
  
 
 }
+
 
 
