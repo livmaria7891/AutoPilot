@@ -56,7 +56,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             nameTextField.text = flightName
         }
         
-        self.tableView.isEditing = true
+//        self.tableView.isEditing = true
         
         // Enable the Save button only if the text field has a valid Flight name.
         updateSaveButtonState()
@@ -88,6 +88,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.currentFlightSteps = steps
         appDelegate.flightName = flightName
         appDelegate.flightIsRunning = true
+        
+        let alertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
         
     }
     
