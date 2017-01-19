@@ -13,18 +13,24 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     
     //MARK: Properties
+    @IBOutlet weak var titleTextView: UITextField!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var addStepButton: UIButton!
+    @IBOutlet weak var addSuppliesButton: UIButton!
     @IBOutlet weak var addStepTextField: UITextField!
     @IBOutlet weak var addSuppliesTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     
     /*
@@ -52,32 +58,48 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-
+        
+        // Text Field Delegates
+        titleTextField.delegate = self
         nameTextField.delegate = self
         addStepTextField.delegate = self
         addSuppliesTextField.delegate = self
+
         
+        // Basic View Element Configurations
         
-        //Set up View with existing Flight info
+        // Display Flight info if flight exists
         if flight != nil {
-            nameLabel.text = flightName
-            nameTextField.text = flightName
+            titleTextField.text = flightName
+            nameTextField.isHidden = true
         }
         
+        if flight == nil {
+            startButton.isHidden = true
+        }
+        
+        addStepButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        addStepButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        addStepButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        
+        addSuppliesButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        addSuppliesButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        addSuppliesButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+
+        // Table View Configurations
+        self.tableView.isScrollEnabled = true
 //        self.tableView.isEditing = true
         
         // Enable the Save button only if the text field has a valid Flight name.
 //        updateSaveButtonState()
         
-        // TEST
-        print(supplies)
-        print(suppliesString)
         
     }
     
   func loadData(){
 
         if let flight = flight {
+            navigationItem.title = flight.name
             flightName = flight.name
             
             for item in flight.supplies!{
@@ -118,15 +140,69 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     
-    @IBAction func editMode(_ sender: Any) {
-        tableView.setEditing(true, animated: true)
+    
+    @IBAction func addStep(_ sender: Any) {
+        if addStepTextField.isFirstResponder{
+            addStepTextField.resignFirstResponder()
+            
+            let newStep = addStepTextField.text ?? ""
+            if(!newStep.isEmpty){
+                steps.append(newStep)
+            }
+            self.tableView.reloadData()
+            saveFlight()
+            addStepTextField.text = ""
+            
+        } else {
+            addStepTextField.becomeFirstResponder()
+            
+        }
+    }
+
+    @IBAction func addSupplies(_ sender: Any) {
+        if addSuppliesTextField.isFirstResponder{
+            addSuppliesTextField.resignFirstResponder()
+            
+            let newItem = addSuppliesTextField.text ?? ""
+            if(!newItem.isEmpty){
+                steps.append(newItem)
+            }
+            self.tableView.reloadData()
+            saveFlight()
+            addSuppliesTextField.text = ""
+            
+        } else {
+            addSuppliesTextField.becomeFirstResponder()
+            
+        }
+    }
+    
+    @IBAction func edit(_ sender: Any) {
+        if tableView.isEditing == false {
+            tableView.setEditing(true, animated: true)
+            editButton.setTitle("Done Editing", for: .normal)
+        } else {
+            tableView.setEditing(false, animated: true)
+            editButton.setTitle("Edit", for: .normal)
+        }
+    }
+    
+    @IBAction func deleteFlight(_ sender: Any) {
+        
+        
     }
     
     
+
+
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
+        
+        if(textField == titleTextField){
+            titleTextField.resignFirstResponder()
+        }
         if(textField == nameTextField){
             nameTextField.resignFirstResponder()
          }
@@ -151,9 +227,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        if(textField == nameTextField){
+        if(textField == nameTextField || textField == titleTextField){
 //           updateSaveButtonState()
-           navigationItem.title = textField.text
+           titleTextField.text = textField.text
+           nameTextField.placeholder = textField.text
+           flightName = textField.text!
+           saveFlight()
         }
         
         if(textField == addStepTextField) {
@@ -173,7 +252,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             if(!newItem.isEmpty){
                 supplies.append(newItem)
             }
-            print(supplies)
+            self.tableView.reloadData()
             saveFlight()
             addSuppliesTextField.text = ""
             
@@ -210,7 +289,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
  
         
-        let name = nameTextField.text ?? ""
+        let name = flightName
         let steps = self.steps
         let supplies = self.supplies
         let isFavorite = self.isFavorite
@@ -224,22 +303,50 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     //MARK: Table View
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var rowCount = 0
+        if section == 0 {
+            rowCount = steps.count
+        }
         
-        return steps.count
+        if section == 1 {
+            rowCount = supplies.count
+        }
+        
+        return rowCount
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title = flightName
+        
+        if section == 0 {
+            title = "Steps"
+        }
+        
+        if section == 1 {
+            title = "Supplies"
+        }
+        
+        return title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepCell", for: indexPath)
 
+        if indexPath.section == 0{
+            let step = steps[indexPath.row]
+            cell.textLabel?.text = step
+        }
         
-        let step = steps[indexPath.row]
-        cell.textLabel?.text = step
-      
+        if indexPath.section == 1{
+            let item = supplies[indexPath.row]
+            cell.textLabel?.text = item
+        }
+        
         return cell
     }
     
