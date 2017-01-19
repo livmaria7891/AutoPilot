@@ -52,13 +52,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     var suppliesString = ""
     var isFavorite = Bool()
-    
+    var index = Int()
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-        
+
         // Text Field Delegates
         titleTextField.delegate = self
         nameTextField.delegate = self
@@ -72,6 +72,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         if flight != nil {
             titleTextField.text = flightName
             nameTextField.isHidden = true
+            
         }
         
         if flight == nil {
@@ -426,9 +427,31 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     private func deleteFlight() {
         print("Got to delete flight")
+        print(Flight.ArchiveURL.path)
+        print(">>>>>")
+        
+        
+        var allFlights = (NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight])
+        print(allFlights ?? "nothing")
+        //!! Phew! just found the single flight ^^ try deleting from the flights array and saving?
+        
+        allFlights?.remove(at: index)
+        print(allFlights ?? "nothing")
+        
+        saveAllFlights(list: allFlights!)
+        
     }
     
- 
+    private func saveAllFlights(list: [Flight]) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(list, toFile: Flight.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save flights...", log: OSLog.default, type: .error)
+        }
+    }
+    
 
 }
 

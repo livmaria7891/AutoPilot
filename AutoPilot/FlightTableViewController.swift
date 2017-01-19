@@ -136,6 +136,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             
             let selectedFlight = flights[indexPath.row]
             flightDetailViewController.flight = selectedFlight
+            flightDetailViewController.index = indexPath.row
         case "goHome":
             print("Segue to launch screen")
             
