@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class FlightTableViewController: UITableViewController {
+class FlightTableViewController: UITableViewController, UIViewControllerTransitioningDelegate {
     
     //MARK: Properties
     
@@ -21,10 +21,7 @@ class FlightTableViewController: UITableViewController {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        //TESTING PURPOSES ONLY (uncomment if statement below)
-//       loadSampleFlights()
-
-//        // Load any saved meals, otherwise load sample data.
+        // Load any saved meals, otherwise load sample data.
         if let savedFlights = loadFlights() {
             flights += savedFlights
         }
@@ -32,12 +29,18 @@ class FlightTableViewController: UITableViewController {
             // Load the sample data.
             loadSampleFlights()
         }
+        
+        // Gesture Recognizer for Swipe
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(FlightTableViewController.swipeGesture(sender:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 
     // MARK: - Table view data source
 
@@ -133,11 +136,28 @@ class FlightTableViewController: UITableViewController {
             
             let selectedFlight = flights[indexPath.row]
             flightDetailViewController.flight = selectedFlight
+        case "goHome":
+            print("Segue to launch screen")
             
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
     }
+    
+    // For Swipe Gesture
+    
+    func swipeGesture(sender: UISwipeGestureRecognizer) {
+          
+        
+        if sender.direction == .right {
+            
+            self.performSegue(withIdentifier: "goHome", sender: self)
+            
+        }
+    }
+
+    
+
     
     //MARK: Actions
     
