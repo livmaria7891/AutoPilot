@@ -129,11 +129,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         appDelegate.flightIsRunning = true
 
         
-        let alertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
+        let startAlertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
+        startAlertController.addAction(defaultAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(startAlertController, animated: true, completion: nil)
         
         if (supplies.count > 0){
             appDelegate.suppliesString = suppliesString
@@ -188,7 +188,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     @IBAction func deleteFlight(_ sender: Any) {
+        let deleteAlertController = UIAlertController(title: "\(flightName)", message: "Are you sure you want to delete \(flightName)?", preferredStyle: .alert)
+        deleteAlertController.addAction(UIAlertAction(title: "Yes, Delete", style: .default, handler: {action in self.deleteFlight() }))
+        deleteAlertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
+        present(deleteAlertController, animated: true, completion: nil)
         
     }
     
@@ -350,7 +354,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         return cell
     }
     
-    //for deleting
+    //for deleting steps
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 
@@ -418,6 +422,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             }
             
         }
+    }
+    
+    private func deleteFlight() {
+        print("Got to delete flight")
     }
     
  
