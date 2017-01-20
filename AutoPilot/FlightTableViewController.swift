@@ -166,6 +166,10 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         
         if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.flight {
             
+            if sender.identifier == "unwindAfterDelete" {
+                tableView.deleteRows(at: [tableView.indexPathForSelectedRow!], with: .none)
+            } else {
+            
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing flight.
                 flights[selectedIndexPath.row] = flight
@@ -178,8 +182,9 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                 
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+        }
             
-            saveFlights()
+        saveFlights()
             
         }
         

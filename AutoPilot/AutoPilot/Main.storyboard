@@ -218,7 +218,7 @@
                         </textField>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="yuV-Xj-xu8">
                             <connections>
-                                <segue destination="bWI-0F-dZu" kind="unwind" unwindAction="unwindToFlightListWithSender:" id="mTa-ge-tcW"/>
+                                <segue destination="bWI-0F-dZu" kind="unwind" identifier="unwindAfterDelete" unwindAction="unwindToFlightListWithSender:" id="mTa-ge-tcW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -235,6 +235,7 @@
                         <outlet property="tableView" destination="oTe-2T-H63" id="keM-j9-BrH"/>
                         <outlet property="titleTextField" destination="Xb5-84-vrm" id="SsE-Oo-jb9"/>
                         <outlet property="titleTextView" destination="Xb5-84-vrm" id="d5W-5e-Exk"/>
+                        <segue destination="bWI-0F-dZu" kind="unwind" unwindAction="unwindToFlightListWithSender:" id="RVm-Hb-hfh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -488,7 +489,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nRM-fe-Fzi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="e1h-Zl-3zc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="e1h-Zl-3zc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -511,8 +512,8 @@
         <image name="redButton" width="170" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="eLF-M8-SXv"/>
         <segue reference="EMv-YQ-Req"/>
-        <segue reference="btp-Cd-Ba2"/>
         <segue reference="caL-lN-lD9"/>
     </inferredMetricsTieBreakers>
 </document>

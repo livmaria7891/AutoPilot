@@ -426,20 +426,15 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func deleteFlight() {
-        print("Got to delete flight")
+    
         print(Flight.ArchiveURL.path)
-        print(">>>>>")
-        
         
         var allFlights = (NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight])
-        print(allFlights ?? "nothing")
-        //!! Phew! just found the single flight ^^ try deleting from the flights array and saving?
-        
+ 
         allFlights?.remove(at: index)
-        print(allFlights ?? "nothing")
-        
+
         saveAllFlights(list: allFlights!)
-        
+        self.performSegue(withIdentifier: "unwindAfterDelete", sender: self)
     }
     
     private func saveAllFlights(list: [Flight]) {
