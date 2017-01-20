@@ -28,6 +28,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // App Styles
+        // nav bar
+        let navigationBarAppearance = UINavigationBar.appearance()
+        
+        navigationBarAppearance.tintColor = UIColor(netHex:0x485A7A)
+        navigationBarAppearance.barTintColor = UIColor(netHex:0x485A7A)
+        navigationBarAppearance.titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "norwester", size: 26)!, NSForegroundColorAttributeName: UIColor(netHex: 0xFAFAFA)
+        ]
+        
+        
+        let itemButtonAppearance = UIBarButtonItem.appearance()
+        let customButtonFont = UIFont(name: "Montserrat-Light", size: 17.0)
+        itemButtonAppearance.tintColor = UIColor(netHex:0xFAFAFA)
+        itemButtonAppearance.setTitleTextAttributes([NSFontAttributeName: customButtonFont!], for: UIControlState.normal)
+        
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
             if !accepted {
                 print("Notification access denied.")
@@ -183,6 +200,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             flightIsRunning = false
             print("end was clicked")
         }
+    }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
     }
 }
 
