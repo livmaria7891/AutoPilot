@@ -136,6 +136,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             
             let selectedFlight = flights[indexPath.row]
             flightDetailViewController.flight = selectedFlight
+            flightDetailViewController.index = indexPath.row
         case "goHome":
             print("Segue to launch screen")
             
@@ -165,20 +166,34 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         
         if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.flight {
             
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing flight.
-                flights[selectedIndexPath.row] = flight
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            } else {
             
-                // Add a new flight.
-                let newIndexPath = IndexPath(row: flights.count, section: 0)
-                flights.append(flight)
-                
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
+                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    // Update an existing flight.
+                    if sourceViewController.deleteClicked == true {
+                        
+               
+                        flights.remove(at: selectedIndexPath.row)
+                        saveFlights()
+                        tableView.deleteRows(at: [selectedIndexPath], with: .fade)
+
+                        
+                        sourceViewController.deleteClicked = false
+                    } else {
+                        flights[selectedIndexPath.row] = flight
+                        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                    }
+                } else {
             
-            saveFlights()
+                    // Add a new flight.
+                    let newIndexPath = IndexPath(row: flights.count, section: 0)
+                    flights.append(flight)
+                    
+                    tableView.insertRows(at: [newIndexPath], with: .automatic)
+                }
+            
+                saveFlights()
+            
+            
             
         }
         
