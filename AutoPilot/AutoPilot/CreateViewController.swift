@@ -54,6 +54,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     var isFavorite = Bool()
     var index = Int()
     
+    var deleteClicked = false
+    
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -427,25 +429,31 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     private func deleteFlight() {
     
-        print(Flight.ArchiveURL.path)
+//        print(Flight.ArchiveURL.path)
+//        
+//        var allFlights = (NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight])
+//        
+//        print(allFlights ?? "nothing here")
+// 
+//        allFlights?.remove(at: index)
+//
+//        saveAllFlights(list: allFlights!)
         
-        var allFlights = (NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight])
- 
-        allFlights?.remove(at: index)
-
-        saveAllFlights(list: allFlights!)
+        deleteClicked = true
+        
         self.performSegue(withIdentifier: "unwindAfterDelete", sender: self)
     }
     
-    private func saveAllFlights(list: [Flight]) {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(list, toFile: Flight.ArchiveURL.path)
-        
-        if isSuccessfulSave {
-            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
-        } else {
-            os_log("Failed to save flights...", log: OSLog.default, type: .error)
-        }
-    }
+//    private func saveAllFlights(list: [Flight]) {
+//        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(list, toFile: Flight.ArchiveURL.path)
+//        
+//        if isSuccessfulSave {
+//            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+//        } else {
+//            os_log("Failed to save flights...", log: OSLog.default, type: .error)
+//        }
+//        
+//    }
     
 
 }
