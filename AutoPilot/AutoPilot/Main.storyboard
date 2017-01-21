@@ -157,8 +157,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-Lt-fyW">
                                 <rect key="frame" x="283" y="126" width="76" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add  " image="addButton">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="17"/>
+                                <state key="normal" title="Add " image="addButton">
+                                    <color key="titleColor" red="0.28235294119999998" green="0.35294117650000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addStep:" destination="eY7-Ml-thl" eventType="touchUpInside" id="xGI-1u-EZx"/>
@@ -167,8 +168,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgm-cR-c8P">
                                 <rect key="frame" x="283" y="197" width="76" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="17"/>
                                 <state key="normal" title="Add " image="addButton">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.28235294119999998" green="0.35294117650000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addSupplies:" destination="eY7-Ml-thl" eventType="touchUpInside" id="nBT-cc-Ics"/>
@@ -234,7 +236,7 @@
                         <outlet property="deleteButton" destination="dv1-zm-5ne" id="NGq-Ba-Vdh"/>
                         <outlet property="editButton" destination="MDQ-FW-jlx" id="yKn-Ed-pCY"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
-                        <outlet property="saveButton" destination="yuV-Xj-xu8" id="Sbh-gl-Npt"/>
+                        <outlet property="saveButton" destination="yuV-Xj-xu8" id="x4i-53-tWC"/>
                         <outlet property="startButton" destination="7ty-4j-cFh" id="Op6-ni-b97"/>
                         <outlet property="tableView" destination="oTe-2T-H63" id="keM-j9-BrH"/>
                         <outlet property="titleTextField" destination="Xb5-84-vrm" id="SsE-Oo-jb9"/>

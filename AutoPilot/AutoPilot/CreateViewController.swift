@@ -19,7 +19,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var addStepButton: UIButton!
@@ -38,7 +38,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
      or constructed as part of adding a new flight.
      */
     var flight: Flight?
-    
+
     var flightName = String()
     var steps = [String]()
     var supplies = [String](){
@@ -52,15 +52,22 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     var suppliesString = ""
     var isFavorite = Bool()
-    var index = Int()
     
+    // Variables for Managing Various Functions
+    var validFlight = false
+    var index = Int()
     var deleteClicked = false
+    
+    //Styling Variables
+    let secondaryFont = "Montserrat-Light"
+    let mediumGray = UIColor(netHex: 0x485A7A)
+    
     
     //MARK: Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-
+        
         // Text Field Delegates
         titleTextField.delegate = self
         nameTextField.delegate = self
@@ -72,14 +79,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         // Display Flight info if flight exists
         if flight != nil {
+            validFlight = true
             titleTextField.text = flightName
-            nameTextField.isHidden = true
-            
         }
         
-        if flight == nil {
-            startButton.isHidden = true
-        }
+        // Display Appropriate View
+        changeViewState()
         
         addStepButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         addStepButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -91,10 +96,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
 
         // Table View Configurations
         self.tableView.isScrollEnabled = true
-//        self.tableView.isEditing = true
-        
-        // Enable the Save button only if the text field has a valid Flight name.
-//        updateSaveButtonState()
         
         
     }
@@ -244,12 +245,25 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        if(textField == nameTextField || textField == titleTextField){
-//           updateSaveButtonState()
-           titleTextField.text = textField.text
-           nameTextField.placeholder = textField.text
-           flightName = textField.text!
-           saveFlight()
+        if textField == titleTextField {
+            if textField.text != nil ?? ""{
+                flightName = textField.text!
+            } else {
+                textField.text = flightName
+            }
+            
+            saveFlight()
+        }
+        
+        if(textField == nameTextField && textField.text != nil ?? "" ){
+           
+            flightName = textField.text!
+            titleTextField.text = textField.text
+            
+            validFlight = true
+            changeViewState()
+            saveFlight()
+            
         }
         
         if(textField == addStepTextField) {
@@ -281,7 +295,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     // MARK: - Navigation
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
+  
         let isPresentingInAddFlightMode = presentingViewController is UINavigationController
         
         if isPresentingInAddFlightMode {
@@ -342,6 +356,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         if section == 0 {
             title = "Steps"
+            
         }
         
         if section == 1 {
@@ -351,17 +366,29 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         return title
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: secondaryFont, size: 20)!
+        header.textLabel?.textColor = mediumGray
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stepCell", for: indexPath)
-
+        let cellText = cell.textLabel
+        let customFont = UIFont(name: secondaryFont, size: 17.0)
+        
         if indexPath.section == 0{
             let step = steps[indexPath.row]
-            cell.textLabel?.text = step
+            cellText?.text = step
+            cellText?.font = customFont
+            
         }
         
         if indexPath.section == 1{
             let item = supplies[indexPath.row]
             cell.textLabel?.text = item
+            cellText?.font = customFont
         }
         
         return cell
@@ -414,11 +441,17 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     //MARK: Private Methods
     
-    private func updateSaveButtonState() {
-        // Disable the Save button if the text field is empty.
-        let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+    private func changeViewState() {
+        if !validFlight {
+            nameTextField.isHidden = false
+            startButton.isHidden = true
+            
+        } else {
+            nameTextField.isHidden = true
+            startButton.isHidden = false
+        }
     }
+    
     
     private func saveFlight() {
       
@@ -438,32 +471,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     private func deleteFlight() {
-    
-//        print(Flight.ArchiveURL.path)
-//        
-//        var allFlights = (NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight])
-//        
-//        print(allFlights ?? "nothing here")
-// 
-//        allFlights?.remove(at: index)
-//
-//        saveAllFlights(list: allFlights!)
         
         deleteClicked = true
         
         self.performSegue(withIdentifier: "unwindAfterDelete", sender: self)
     }
     
-//    private func saveAllFlights(list: [Flight]) {
-//        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(list, toFile: Flight.ArchiveURL.path)
-//        
-//        if isSuccessfulSave {
-//            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
-//        } else {
-//            os_log("Failed to save flights...", log: OSLog.default, type: .error)
-//        }
-//        
-//    }
+
     
 
 }
