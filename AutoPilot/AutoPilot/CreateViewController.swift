@@ -127,19 +127,27 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     // MARK: Actions
     
     @IBAction func Start(_ sender: Any) {
-        appDelegate.currentFlightSteps = steps
-        appDelegate.flightName = flightName
-        appDelegate.flightIsRunning = true
-
-        
-        let startAlertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
-        startAlertController.addAction(defaultAction)
-        
-        present(startAlertController, animated: true, completion: nil)
-        
-        if (supplies.count > 0){
-            appDelegate.suppliesString = suppliesString
+        if steps.count > 0{
+            appDelegate.currentFlightSteps = steps
+            appDelegate.flightName = flightName
+            appDelegate.flightIsRunning = true
+            
+            if (supplies.count > 0){
+                appDelegate.suppliesString = suppliesString
+            }
+            
+            let startAlertController = UIAlertController(title: "\(flightName)", message: "Time to lock your phone and get started!", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
+            startAlertController.addAction(defaultAction)
+            
+            present(startAlertController, animated: true, completion: nil)
+            
+                
+        } else {
+            let startAlertController = UIAlertController(title: "\(flightName)", message: "Uh Oh! You need to add some steps before you can start", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Got it.", style: .default, handler: nil)
+            startAlertController.addAction(defaultAction)
+            present(startAlertController, animated: true, completion: nil)
         }
     }
     
@@ -184,9 +192,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         if tableView.isEditing == false {
             tableView.setEditing(true, animated: true)
             editButton.setTitle("Done Editing", for: .normal)
+            saveButton.isEnabled = false
         } else {
             tableView.setEditing(false, animated: true)
             editButton.setTitle("Edit", for: .normal)
+            saveButton.isEnabled = true
         }
     }
     
@@ -229,7 +239,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         // Disable the Save button while editing.
-//        saveButton.isEnabled = false
+        saveButton.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -264,7 +274,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             addSuppliesTextField.text = ""
             
         }
-        
+        saveButton.isEnabled = true
     }
     
 
@@ -406,8 +416,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     private func updateSaveButtonState() {
         // Disable the Save button if the text field is empty.
-//        let text = nameTextField.text ?? ""
-//        saveButton.isEnabled = !text.isEmpty
+        let text = nameTextField.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
     }
     
     private func saveFlight() {

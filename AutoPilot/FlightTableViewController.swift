@@ -18,6 +18,9 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Styling
+        self.tableView.backgroundColor = UIColor(netHex: 0xFAFAFA)
+        
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
@@ -67,10 +70,9 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         let flight = flights[indexPath.row]
         
         cell.flightName.text = flight.name
-        cell.categoryImage.image = nil
-        if(flight.isFavorite){
-            cell.favoriteImage.image = UIImage(named: "placeHolderStar")
-        }
+//        if(flight.isFavorite){
+//            cell.favoriteImage.image = UIImage(named: "placeHolderStar")
+//        }
         return cell
     }
 
