@@ -51,11 +51,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     var suppliesString = ""
-    var isFavorite = Bool()
+    var isFavorite = false
     
     // Variables for Managing Various Functions
     var validFlight = false
-    var index = Int()
     var deleteClicked = false
     
     //Styling Variables
@@ -419,10 +418,6 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     //For Changing Order of Cells
-    
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        return .none
-//    }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false

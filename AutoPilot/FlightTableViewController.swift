@@ -14,7 +14,10 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     //MARK: Properties
     
     var flights = [Flight]()
-
+    
+    var favorites = [Flight]()
+    var notFavorited = [Flight]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +36,11 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             loadSampleFlights()
         }
         
+        // Sort All Flights By Favorites
+        for flight in flights {
+            sortFavorites(flight: flight)
+        }
+
         // Gesture Recognizer for Swipe
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(FlightTableViewController.swipeGesture(sender:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -41,20 +49,39 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+       return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return flights.count
+        
+        var rowCount = 0
+        if section == 0 {
+            rowCount = favorites.count
+        }
+        
+        if section == 1 {
+            rowCount = notFavorited.count
+        }
+
+        return rowCount
+
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title = "Flights"
+        
+        if section == 0 {
+            title = "Favorites"
+            
+        }
+        
+        return title
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,13 +93,24 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             fatalError("The dequeued cell is not an instance of FlightTableViewCell.")
         }
         
-        // Fetches the appropriate meal for the data source layout.
-        let flight = flights[indexPath.row]
+        // Fetches the appropriate flight for the data source layout.
         
-        cell.flightName.text = flight.name
-//        if(flight.isFavorite){
-//            cell.favoriteImage.image = UIImage(named: "placeHolderStar")
+        //FOR FIXING
+//        if indexPath.section == 0 { //favorites
+//                      let flight = flights[indexPath.row]
+//                        cell.flightName.text = flight.name
 //        }
+
+        if indexPath.section == 0 { //favorites
+            let flight = favorites[indexPath.row]
+            cell.flightName.text = flight.name
+        }
+        
+        if indexPath.section == 1 { //non-favorites
+            let flight = notFavorited[indexPath.row]
+            cell.flightName.text = flight.name
+        }
+        
         return cell
     }
 
@@ -138,7 +176,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             
             let selectedFlight = flights[indexPath.row]
             flightDetailViewController.flight = selectedFlight
-            flightDetailViewController.index = indexPath.row
+            
         case "goHome":
             print("Segue to launch screen")
             
@@ -172,14 +210,24 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     // Update an existing flight.
                     if sourceViewController.deleteClicked == true {
+                        print(selectedIndexPath)
+                        print(selectedIndexPath.row)
                         
-               
-                        flights.remove(at: selectedIndexPath.row)
-                        saveFlights()
-                        tableView.deleteRows(at: [selectedIndexPath], with: .fade)
+                        //Specifics.. rewrite for all circumstances
+                        if !flight.isFavorite{
+                            notFavorited.remove(at: selectedIndexPath.row)
+                            rebuildFlightsArray()
+                           
+                        } else {
+                            favorites.remove(at: selectedIndexPath.row)
+                            rebuildFlightsArray()
+                
+                        }
+                        
+                       tableView.deleteRows(at: [selectedIndexPath], with: .fade)
 
-                        
                         sourceViewController.deleteClicked = false
+                        
                     } else {
                         flights[selectedIndexPath.row] = flight
                         tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -187,10 +235,18 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                 } else {
             
                     // Add a new flight.
-                    let newIndexPath = IndexPath(row: flights.count, section: 0)
-                    flights.append(flight)
                     
+                    sortFavorites(flight: flight)
+                    
+                    var newIndexPath = IndexPath(row: notFavorited.count - 1, section: 1)
+                    
+                    if flight.isFavorite {
+                        newIndexPath = IndexPath(row: favorites.count - 1, section: 0)
+                    }
+                    
+                    rebuildFlightsArray ()
                     tableView.insertRows(at: [newIndexPath], with: .automatic)
+                  
                 }
             
                 saveFlights()
@@ -239,6 +295,18 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     private func loadFlights() -> [Flight]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
         
+    }
+    
+    private func sortFavorites(flight: Flight) {
+        if flight.isFavorite {
+            favorites.append(flight)
+        } else {
+            notFavorited.append(flight)
+        }
+    }
+    
+    private func rebuildFlightsArray() {
+        flights = favorites + notFavorited
     }
 
 }
