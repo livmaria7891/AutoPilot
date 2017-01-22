@@ -83,6 +83,12 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         
         return title
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: "Montserrat-Light", size: 20)!
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -94,12 +100,6 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         }
         
         // Fetches the appropriate flight for the data source layout.
-        
-        //FOR FIXING
-//        if indexPath.section == 0 { //favorites
-//                      let flight = flights[indexPath.row]
-//                        cell.flightName.text = flight.name
-//        }
 
         if indexPath.section == 0 { //favorites
             let flight = favorites[indexPath.row]
@@ -189,7 +189,6 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     
     func swipeGesture(sender: UISwipeGestureRecognizer) {
           
-        
         if sender.direction == .right {
             
             self.performSegue(withIdentifier: "goHome", sender: self)

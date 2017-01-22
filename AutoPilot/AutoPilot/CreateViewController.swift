@@ -408,13 +408,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             tableView.deleteRows(at: [indexPath], with: .fade)
 
         }
-        
-        if editingStyle == .delete {
-            steps.remove(at: indexPath.row)
-            saveFlight()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        
-        }
+//        
+//        if editingStyle == .delete {
+//            supplies.remove(at: indexPath.row)
+//            saveFlight()
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        
+//        }
     }
     
     //For Changing Order of Cells

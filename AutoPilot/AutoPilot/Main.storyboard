@@ -463,7 +463,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRW-aL-eKA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kU3-K5-TxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kU3-K5-TxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -481,7 +481,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="auz-m3-0Bs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kKu-sn-3bs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kKu-sn-3bs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -499,7 +499,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nRM-fe-Fzi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="e1h-Zl-3zc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="e1h-Zl-3zc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -525,6 +525,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="caL-lN-lD9"/>
         <segue reference="EMv-YQ-Req"/>
-        <segue reference="btp-Cd-Ba2"/>
+        <segue reference="eLF-M8-SXv"/>
     </inferredMetricsTieBreakers>
 </document>
