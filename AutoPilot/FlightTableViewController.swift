@@ -127,12 +127,20 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            flights.remove(at: indexPath.row)
+            if indexPath.section == 0{
+                favorites.remove(at: indexPath.row)
+            } else if indexPath.section == 1 {
+                notFavorited.remove(at: indexPath.row)
+            }
+            rebuildFlightsArray()
             saveFlights()
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
+                
     }
     
 
