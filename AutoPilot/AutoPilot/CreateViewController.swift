@@ -397,24 +397,21 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 
-        
+        print(">>>>")
+        print(indexPath)
         print(indexPath.row)
         if editingStyle == .delete {
-       
-            steps.remove(at: indexPath.row)
-         
-            saveFlight()
-           
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if indexPath.section == 0 {
+                steps.remove(at: indexPath.row)
+                saveFlight()
+                
 
+            } else if indexPath.section == 1{
+                supplies.remove(at: indexPath.row)
+                saveFlight()
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-//        
-//        if editingStyle == .delete {
-//            supplies.remove(at: indexPath.row)
-//            saveFlight()
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        
-//        }
     }
     
     //For Changing Order of Cells
