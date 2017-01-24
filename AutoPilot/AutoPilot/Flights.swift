@@ -17,7 +17,7 @@ class Flight: NSObject, NSCoding {
     var steps: [String]?
     var supplies: [String]?
     var isFavorite: Bool
-    var avgTime = String()
+    var avgTime = Double()
 
     
     //MARK: Archiving Paths
@@ -32,12 +32,12 @@ class Flight: NSObject, NSCoding {
         static let steps = "steps"
         static let supplies = "supplies"
         static let isFavorite = "isFavorite"
-
+        static let avgTime = "avgTime"
     }
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false) {
+    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false, avgTime: Double = 0) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -49,6 +49,7 @@ class Flight: NSObject, NSCoding {
         self.steps = steps
         self.supplies = supplies
         self.isFavorite = isFavorite
+        self.avgTime = avgTime
 
     }
     
@@ -60,6 +61,7 @@ class Flight: NSObject, NSCoding {
         aCoder.encode(steps, forKey: PropertyKey.steps)
         aCoder.encode(supplies, forKey: PropertyKey.supplies)
         aCoder.encode(isFavorite, forKey: PropertyKey.isFavorite)
+        aCoder.encode(avgTime, forKey: PropertyKey.avgTime)
         
     }
     

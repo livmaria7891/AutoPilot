@@ -128,9 +128,12 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     @IBAction func Start(_ sender: Any) {
         if steps.count > 0{
-            appDelegate.currentFlightSteps = steps
-            appDelegate.flightName = flightName
+            
+            appDelegate.flight = flight
             appDelegate.flightIsRunning = true
+//            appDelegate.currentFlightSteps = steps
+//            appDelegate.flightName = flightName
+
             
             if (supplies.count > 0){
                 appDelegate.suppliesString = suppliesString

@@ -14,14 +14,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    var flight: Flight? { didSet {
+        notificationCounter = 0
+        if flight != nil {
+            currentFlightSteps = (flight?.steps)!
+            flightName = (flight?.name)!
+            
+        }
+        }
+    }
     var notificationCounter = 0
     var flightIsRunning = false
     var currentFlightSteps = [String]()
-    var flightName = String(){
-        didSet{
-            notificationCounter = 0
-        }
-    }
+    var flightName = String()
+//    var flightName = String(){
+//        didSet{
+//            notificationCounter = 0
+//        }
+//    }
     var suppliesString: String?
     
     
