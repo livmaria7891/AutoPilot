@@ -28,24 +28,19 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         navigationItem.leftBarButtonItem = editButtonItem
         
         // Load any saved flights, otherwise load sample data.
-        buildFlightsArray()
+        
         
         if let savedFlights = loadFlights() {
             for flight in savedFlights{
                 sortFlights(flight: flight)
             }
+            
+        } else {
+            buildFlightsArray()
+            // Load the sample data.
+           // loadSampleFlights()
         }
-            //else {
-////            // Load the sample data.
-////            loadSampleFlights()
-//        }
-//
-        // Sort All Flights By Favorites And Reorganize working Flights Array
-//        for flight in flights {
-//            sortFavorites(flight: flight)
-//        }
-        
-//        rebuildFlightsArray()
+
         printFlightsArray()
         // Gesture Recognizer for Swipe
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(FlightTableViewController.swipeGesture(sender:)))
@@ -109,15 +104,6 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         
         let flight = flights[indexPath.section][indexPath.row]
         cell.flightName.text = flight.name
-//        if indexPath.section == 0 { //favorites
-//            let flight = favorites[indexPath.row]
-//            cell.flightName.text = flight.name
-//        }
-//        
-//        if indexPath.section == 1 { //non-favorites
-//            let flight = notFavorited[indexPath.row]
-//            cell.flightName.text = flight.name
-//        }
         
         return cell
     }
@@ -235,8 +221,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                     let row = selectedIndexPath.row
                     print(section)
                     print(row)
-//                    let arrayLocation = [section][row]
-//                    print(arrayLocation)
+
                     if sourceViewController.deleteClicked == true {
                         print(section)
                         print(row)
@@ -320,18 +305,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         return NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
         
     }
-//    
-//    private func sortFavorites(flight: Flight) {
-//        if flight.isFavorite {
-//            favorites.append(flight)
-//        } else {
-//            notFavorited.append(flight)
-//        }
-//    }
-    
-//    private func rebuildFlightsArray() {
-//        flights = [favorites, notFavorited]
-//    }
+
 
     private func sortFlights(flight: Flight) {
         if flight.isFavorite{
