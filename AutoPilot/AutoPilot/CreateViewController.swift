@@ -51,7 +51,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     var suppliesString = ""
-    var isFavorite = false
+    var isFavorite = true
     
     // Variables for Managing Various Functions
     var validFlight = false
