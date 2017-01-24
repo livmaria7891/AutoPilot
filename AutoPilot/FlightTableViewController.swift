@@ -138,14 +138,13 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             let section = indexPath.section
             let row = indexPath.row
             
-            flights.remove(at: [section][row])
-//            if indexPath.section == 0{
-//                favorites.remove(at: indexPath.row)
-//            } else if indexPath.section == 1 {
-//                notFavorited.remove(at: indexPath.row)
-//            }
+            if section == 0{
+                favorites.remove(at: row)
+            } else if section == 1 {
+                notFavorited.remove(at: row)
+            }
             
-//            rebuildFlightsArray()
+            buildFlightsArray()
             saveFlights()
             tableView.deleteRows(at: [indexPath], with: .fade)
             
