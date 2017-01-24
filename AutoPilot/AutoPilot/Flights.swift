@@ -17,6 +17,7 @@ class Flight: NSObject, NSCoding {
     var steps: [String]?
     var supplies: [String]?
     var isFavorite: Bool
+    var avgTime = String()
 
     
     //MARK: Archiving Paths
