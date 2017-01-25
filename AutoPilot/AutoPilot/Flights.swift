@@ -19,6 +19,17 @@ class Flight: NSObject, NSCoding {
     var isFavorite: Bool
     var avgTime = Double()
 
+    //MARK: Business Logic
+    
+    func setAverageTime(start: Date, end: Date){
+        let interval = end.timeIntervalSince(start as Date)
+        if avgTime > 0 {
+            avgTime = (avgTime + interval)/2
+        } else {
+            avgTime = interval
+        }
+        print(avgTime)
+    }
     
     //MARK: Archiving Paths
     
@@ -37,7 +48,7 @@ class Flight: NSObject, NSCoding {
     
     //MARK: Initialization
     
-    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false, avgTime: Double = 0) {
+    init?(name: String, steps: [String]? = [String](), supplies: [String]? = nil, isFavorite: Bool = false, avgTime: Double = 0.0) {
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -79,10 +90,27 @@ class Flight: NSObject, NSCoding {
         
         let isFavorite = aDecoder.decodeBool(forKey: PropertyKey.isFavorite)
         
+        let avgTime = aDecoder.decodeDouble(forKey: PropertyKey.avgTime)
         
         // Must call designated initializer.
-        self.init(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite)
+        self.init(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime)
     }
-
     
+    //MARK: Save
+//    func save() {
+//        
+//        let flights = NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
+//            
+//        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(flights ?? <#default value#>, toFile: Flight.ArchiveURL.path)
+//        
+//        if isSuccessfulSave {
+//        os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+//        } else {
+//        os_log("Failed to save flights...", log: OSLog.default, type: .error)
+//        }
+//        
+//        NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
+//    }
+
+
 }

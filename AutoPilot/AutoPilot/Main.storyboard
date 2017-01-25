@@ -240,6 +240,7 @@
                         <outlet property="addStepTextField" destination="u95-ca-kyc" id="FIP-uc-yzo"/>
                         <outlet property="addSuppliesButton" destination="Hgm-cR-c8P" id="UTE-e7-bQB"/>
                         <outlet property="addSuppliesTextField" destination="Oo6-vT-s3B" id="Rhb-im-K7u"/>
+                        <outlet property="avgTimeLabel" destination="Qzb-ts-vkH" id="xaU-6K-Klu"/>
                         <outlet property="deleteButton" destination="dv1-zm-5ne" id="NGq-Ba-Vdh"/>
                         <outlet property="editButton" destination="MDQ-FW-jlx" id="yKn-Ed-pCY"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>

@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if flight != nil {
             currentFlightSteps = (flight?.steps)!
             flightName = (flight?.name)!
-            
+
         }
         }
     }
@@ -27,13 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var flightIsRunning = false
     var currentFlightSteps = [String]()
     var flightName = String()
-//    var flightName = String(){
-//        didSet{
-//            notificationCounter = 0
-//        }
-//    }
     var suppliesString: String?
     
+    // Time Tracking Variables
+    var startTime = Date()
+    
+    // View Controllers
+//   var viewController = CreateViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -79,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         //Something like if there's an active list, schedule notification.
+
         if flightIsRunning && notificationCounter < currentFlightSteps.count {
             
             
@@ -179,6 +181,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func saveFlight() {
+        print("DO WE SAVE??")
+        if flight != nil{
+            print("TRYING TO SAVE BUT")
+            let thisFlight = flight
+            print(thisFlight ?? "nope")
+            print(thisFlight?.name ?? "nope")
+            print(thisFlight?.avgTime ?? "nope")
+//            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
+//            if isSuccessfulSave {
+//                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
+//            } else {
+//                os_log("Failed to save flight...", log: OSLog.default, type: .error)
+//                
+//            }
+            
+        }
+    }
 
 
 }
@@ -194,6 +215,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         if notificationCounter >= (currentFlightSteps.count - 1 ){
             flightIsRunning = false
+            let endTime = NSDate()
+
+            flight?.setAverageTime(start: startTime, end: endTime as Date)
+            print(">>>>>>")
+            print(flight?.avgTime ?? "No Flight")
+            saveFlight()
             sendCompletedNotification()
             return
         }

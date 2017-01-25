@@ -1,4 +1,3 @@
-//
 //  CreateViewController.swift
 //  AutoPilot
 //
@@ -26,17 +25,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var addSuppliesButton: UIButton!
     @IBOutlet weak var addStepTextField: UITextField!
     @IBOutlet weak var addSuppliesTextField: UITextField!
+    @IBOutlet weak var avgTimeLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     
-    
-    /*
-     This value is either passed by `FlightTableViewController` in `prepare(for:sender:)`
-     or constructed as part of adding a new flight.
-     */
+    // Flight Specific Variables
     var flight: Flight?
 
     var flightName = String()
@@ -52,6 +48,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     var suppliesString = ""
     var isFavorite = true
+    var avgTime = 0.0
     
     // Variables for Managing Various Functions
     var validFlight = false
@@ -80,7 +77,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         if flight != nil {
             validFlight = true
             titleTextField.text = flightName
+            avgTimeLabel.text = avgTimeToString()
         }
+        
+        //TESTING
+        print(avgTime)
         
         // Display Appropriate View
         changeViewState()
@@ -113,7 +114,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             for step in flight.steps!{
                 steps.append(step)
             }
-            
+            avgTime = flight.avgTime
             isFavorite = flight.isFavorite
         }
     }
@@ -124,6 +125,18 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Logic
+    
+    func setAverageTime(start: Date, end: Date){
+        let interval = end.timeIntervalSince(start as Date)
+        if avgTime > 0 {
+            avgTime = (avgTime + interval)/2
+        } else {
+            avgTime = interval
+        }
+        print(avgTime)
+    }
+    
     // MARK: Actions
     
     @IBAction func Start(_ sender: Any) {
@@ -131,10 +144,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             
             appDelegate.flight = flight
             appDelegate.flightIsRunning = true
-//            appDelegate.currentFlightSteps = steps
-//            appDelegate.flightName = flightName
-
-            
+            appDelegate.startTime = NSDate() as Date
             if (supplies.count > 0){
                 appDelegate.suppliesString = suppliesString
             }
@@ -326,10 +336,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         let steps = self.steps
         let supplies = self.supplies
         let isFavorite = self.isFavorite
-        
+        let avgTime = self.avgTime
         
         // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
-        flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite )
+        flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime )
         
     }
     
@@ -444,12 +454,22 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     
+    private func avgTimeToString() -> String {
+        
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+    
+        let time = dateComponentsFormatter.string(from: avgTime)
+        return "Average Time: \(time!)"
+        
+    }
+    
     
     private func saveFlight() {
       
         if flight != nil{
             
-            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite)
+            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime)
             
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
             if isSuccessfulSave {
