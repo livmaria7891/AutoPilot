@@ -240,7 +240,14 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                         
                         
                     } else {
-                        flights[row][section] = flight
+
+                        if section == 0 {
+                            favorites[row] = flight
+                        } else if section == 1{
+                            notFavorited[row] = flight
+                        }
+                        
+                        buildFlightsArray()
                         tableView.reloadRows(at: [selectedIndexPath], with: .none)
                     }
                 } else {

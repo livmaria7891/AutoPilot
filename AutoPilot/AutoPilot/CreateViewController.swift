@@ -20,6 +20,8 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var addStepButton: UIButton!
@@ -438,6 +440,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         } else {
             nameTextField.isHidden = true
             startButton.isHidden = false
+            cancelButton.isEnabled = false
         }
     }
     
