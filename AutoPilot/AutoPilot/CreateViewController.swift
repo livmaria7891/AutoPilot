@@ -297,18 +297,15 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
   
-    dismiss(animated: true, completion: nil)
-//        let isPresentingInAddFlightMode = presentingViewController is UINavigationController
-//        
-//        if isPresentingInAddFlightMode {
-//            dismiss(animated: true, completion: nil)
-//        }
-//        else if let owningNavigationController = navigationController{
-//            owningNavigationController.popViewController(animated: true)
-//        }
-//        else {
-//            fatalError("The FlightViewController is not inside a navigation controller.")
-//        }
+        let isPresentingInAddFlightMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddFlightMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("The FlightViewController is not inside a navigation controller.")
+        }
     }
     
 
