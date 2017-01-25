@@ -301,11 +301,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         if isPresentingInAddFlightMode {
             dismiss(animated: true, completion: nil)
-        }
-        else if let owningNavigationController = navigationController{
+        } else if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
-        }
-        else {
+        } else {
             fatalError("The FlightViewController is not inside a navigation controller.")
         }
     }
@@ -440,7 +438,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         } else {
             nameTextField.isHidden = true
             startButton.isHidden = false
-            cancelButton.isEnabled = false
+            //cancelButton.isEnabled = false
         }
     }
     
