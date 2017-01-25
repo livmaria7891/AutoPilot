@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var flights = [[Flight]]()
     var path = IndexPath()
+    var myViewController = CreateViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -203,7 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    //if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.fligh
+    
     func prepareFlight() -> Flight {
         let name = flightName
         let steps = flight?.steps
@@ -212,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let avgTime = self.avgTime
         
         let readyFlight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite!, avgTime: avgTime )
+        self.myViewController.flight = readyFlight
         return readyFlight!
     }
 
