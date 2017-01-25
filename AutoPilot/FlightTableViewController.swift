@@ -184,7 +184,8 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             let section = indexPath.section
             let selectedFlight = flights[section][row]
            
-            
+            flightDetailViewController.allFlights = flights
+            flightDetailViewController.path = indexPath
             flightDetailViewController.flight = selectedFlight
             
         case "goHome":
@@ -240,7 +241,12 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                         
                         
                     } else {
-                        flights[row][section] = flight
+                        if section == 0 {
+                            favorites[row] = flight
+                        } else if section == 1 {
+                            notFavorited[row] = flight
+                        }
+                        buildFlightsArray()
                         tableView.reloadRows(at: [selectedIndexPath], with: .none)
                     }
                 } else {

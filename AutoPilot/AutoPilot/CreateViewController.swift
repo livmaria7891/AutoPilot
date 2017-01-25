@@ -58,6 +58,10 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     let secondaryFont = "Montserrat-Light"
     let mediumGray = UIColor(netHex: 0x485A7A)
     
+    // For Saving
+    
+    var allFlights = [[Flight]]()
+    var path = IndexPath()
     
     //MARK: Overrides
     override func viewDidLoad() {
@@ -143,8 +147,11 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         if steps.count > 0{
             
             appDelegate.flight = flight
+            
             appDelegate.flightIsRunning = true
             appDelegate.startTime = NSDate() as Date
+            appDelegate.flights = allFlights
+            appDelegate.path = path
             if (supplies.count > 0){
                 appDelegate.suppliesString = suppliesString
             }
@@ -263,7 +270,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             } else {
                 textField.text = flightName
             }
-            
+           
             saveFlight()
         }
         
@@ -465,22 +472,51 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     }
     
     
-    private func saveFlight() {
-      
-        if flight != nil{
-            
-            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime)
-            
-            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
-            if isSuccessfulSave {
-                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
-            } else {
-                os_log("Failed to save flight...", log: OSLog.default, type: .error)
-            
-            }
-            
+    
+//THERE'S A CHANCE THIS DOES NOTHING
+    
+//    private func saveFlight() {
+//      
+//        if flight != nil{
+//            
+//            let thisFlight = Flight(name: flightName, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime)
+//            
+//            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
+//            if isSuccessfulSave {
+//                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
+//            } else {
+//                os_log("Failed to save flight...", log: OSLog.default, type: .error)
+//            
+//            }
+//            
+//        }
+//    }
+    
+    func saveFlight(){
+        
+        let name = flightName
+        let steps = self.steps
+        let supplies = self.supplies
+        let isFavorite = self.isFavorite
+        let avgTime = self.avgTime
+        
+        flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime )
+        
+        allFlights[path.section][path.row] = flight!
+        saveFlights()
+    }
+    
+    private func saveFlights() {
+        let flightsFlattened = Array(allFlights.joined())
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(flightsFlattened, toFile: Flight.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save flights...", log: OSLog.default, type: .error)
         }
     }
+    
     
     private func deleteFlight() {
         

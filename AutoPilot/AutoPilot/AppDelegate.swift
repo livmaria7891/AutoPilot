@@ -20,21 +20,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if flight != nil {
             currentFlightSteps = (flight?.steps)!
             flightName = (flight?.name)!
-
+            avgTime = (flight?.avgTime)!
         }
         }
     }
+
     var notificationCounter = 0
     var flightIsRunning = false
     var currentFlightSteps = [String]()
     var flightName = String()
     var suppliesString: String?
+    var avgTime = Double()
     
     // Time Tracking Variables
     var startTime = Date()
     
-    // View Controllers
-//   var viewController = CreateViewController()
+    // Variables to enable Saving
+    
+    var flights = [[Flight]]()
+    var path = IndexPath()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -183,22 +187,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func saveFlight() {
-        print("DO WE SAVE??")
-        if flight != nil{
-            print("TRYING TO SAVE BUT")
-            let thisFlight = flight
-            print(thisFlight ?? "nope")
-            print(thisFlight?.name ?? "nope")
-            print(thisFlight?.avgTime ?? "nope")
-//            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(thisFlight as Any, toFile: Flight.ArchiveURL.path)
-//            if isSuccessfulSave {
-//                os_log("Flight successfully saved.", log: OSLog.default, type: .debug)
-//            } else {
-//                os_log("Failed to save flight...", log: OSLog.default, type: .error)
-//                
-//            }
+        let thisFlight = prepareFlight()
+        print(thisFlight)
+        flights[path.section][path.row] = thisFlight
+        print(flights)
+        if (flight != nil) {
+ 
+            let flightsFlattened = Array(flights.joined())
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(flightsFlattened, toFile: Flight.ArchiveURL.path)
             
+            if isSuccessfulSave {
+                os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
+            } else {
+                os_log("Failed to save flights...", log: OSLog.default, type: .error)
+            }
         }
+    }
+    //if let sourceViewController = sender.source as? CreateViewController, let flight = sourceViewController.fligh
+    func prepareFlight() -> Flight {
+        let name = flightName
+        let steps = flight?.steps
+        let supplies = flight?.supplies
+        let isFavorite = flight?.isFavorite
+        let avgTime = self.avgTime
+        
+        let readyFlight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite!, avgTime: avgTime )
+        return readyFlight!
     }
 
 
@@ -217,7 +231,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             flightIsRunning = false
             let endTime = NSDate()
 
-            flight?.setAverageTime(start: startTime, end: endTime as Date)
+            avgTime = (flight?.setAverageTime(start: startTime, end: endTime as Date))!
             print(">>>>>>")
             print(flight?.avgTime ?? "No Flight")
             saveFlight()
@@ -253,4 +267,5 @@ extension UIColor {
         self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
     }
 }
+
 

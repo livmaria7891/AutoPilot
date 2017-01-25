@@ -21,14 +21,14 @@ class Flight: NSObject, NSCoding {
 
     //MARK: Business Logic
     
-    func setAverageTime(start: Date, end: Date){
+    func setAverageTime(start: Date, end: Date) -> Double {
         let interval = end.timeIntervalSince(start as Date)
         if avgTime > 0 {
             avgTime = (avgTime + interval)/2
         } else {
             avgTime = interval
         }
-        print(avgTime)
+        return avgTime
     }
     
     //MARK: Archiving Paths
@@ -96,21 +96,7 @@ class Flight: NSObject, NSCoding {
         self.init(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite, avgTime: avgTime)
     }
     
-    //MARK: Save
-//    func save() {
-//        
-//        let flights = NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
-//            
-//        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(flights ?? <#default value#>, toFile: Flight.ArchiveURL.path)
-//        
-//        if isSuccessfulSave {
-//        os_log("Flights successfully saved.", log: OSLog.default, type: .debug)
-//        } else {
-//        os_log("Failed to save flights...", log: OSLog.default, type: .error)
-//        }
-//        
-//        NSKeyedUnarchiver.unarchiveObject(withFile: Flight.ArchiveURL.path) as? [Flight]
-//    }
+
 
 
 }
