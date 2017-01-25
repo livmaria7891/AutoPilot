@@ -304,7 +304,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         } else if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
         } else {
-            fatalError("The FlightViewController is not inside a navigation controller.")
+            fatalError("The CreateViewController is not inside a navigation controller.")
         }
     }
     
