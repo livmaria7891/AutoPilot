@@ -41,7 +41,7 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
            // loadSampleFlights()
         }
 
-        printFlightsArray()
+
         // Gesture Recognizer for Swipe
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(FlightTableViewController.swipeGesture(sender:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right

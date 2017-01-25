@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453015951E395E970065068D /* SwipeGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453015941E395E970065068D /* SwipeGesture.swift */; };
 		455945021E1B6E9B00491077 /* norwester.otf in Resources */ = {isa = PBXBuildFile; fileRef = 455945011E1B6E9B00491077 /* norwester.otf */; };
 		455945041E1B6FDC00491077 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 455945031E1B6FDC00491077 /* Montserrat-Light.otf */; };
 		455945061E1C1ABD00491077 /* sacramento.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 455945051E1C1ABD00491077 /* sacramento.ttf */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		453015941E395E970065068D /* SwipeGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeGesture.swift; sourceTree = "<group>"; };
 		455945011E1B6E9B00491077 /* norwester.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = norwester.otf; sourceTree = "<group>"; };
 		455945031E1B6FDC00491077 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		455945051E1C1ABD00491077 /* sacramento.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sacramento.ttf; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				455945631E202D7D00491077 /* Main.storyboard */,
+				453015941E395E970065068D /* SwipeGesture.swift */,
 				45888E421E257A3600297060 /* HomeViewController.swift */,
 				456D8C6D1E21E182002F67D6 /* SingleFlightViewController.swift */,
 				45FB55851E1AD43B00AC9A0E /* AppDelegate.swift */,
@@ -172,6 +175,7 @@
 				4559455C1E1EF8DF00491077 /* FlightTableViewCell.swift in Sources */,
 				455945561E1EED6C00491077 /* Flights.swift in Sources */,
 				456D8C6E1E21E182002F67D6 /* SingleFlightViewController.swift in Sources */,
+				453015951E395E970065068D /* SwipeGesture.swift in Sources */,
 				45888E431E257A3600297060 /* HomeViewController.swift in Sources */,
 				45FB55861E1AD43B00AC9A0E /* AppDelegate.swift in Sources */,
 				455945621E1F0A4600491077 /* FlightTableViewController.swift in Sources */,
