@@ -27,6 +27,8 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
+        //Build Array
+        buildFlightsArray()
         // Load any saved flights, otherwise load sample data.
         
         
@@ -36,10 +38,13 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             }
             
         } else {
-            buildFlightsArray()
             // Load the sample data.
-           // loadSampleFlights()
+            loadSampleFlights()
+            
         }
+        print(flights)
+        print(favorites)
+        print(notFavorited)
 
 
         // Gesture Recognizer for Swipe
@@ -219,8 +224,15 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                     
                     let section = selectedIndexPath.section
                     let row = selectedIndexPath.row
-                    print(section)
-                    print(row)
+                    print(flight.isFavorite)
+                    print(">>>>")
+                    print(favorites)
+                    print(">>>>")
+                    print(notFavorited)
+                    print(">>>>")
+                    print(flights)
+                    print("xxxxx")
+                    print(flight)
 
                     if sourceViewController.deleteClicked == true {
                         print(section)
@@ -241,14 +253,30 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                         
                     } else {
 
-                        if section == 0 {
-                            favorites[row] = flight
-                        } else if section == 1{
-                            notFavorited[row] = flight
+                        //Updates saved Flights
+                        if flight.isFavorite && section == 0{
+                            tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         
-                        buildFlightsArray()
-                        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                        if flight.isFavorite && section == 1 {
+                            notFavorited.remove(at: row)
+                            favorites.append(flight)
+                            buildFlightsArray()
+                            tableView.reloadData()
+                        }
+                        
+                        if !flight.isFavorite && section == 0 {
+                            favorites.remove(at: row)
+                            notFavorited.append(flight)
+                            buildFlightsArray()
+                            tableView.reloadData()
+                        }
+                        
+                        if !flight.isFavorite && section == 1 {
+                            tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                        }
+
+                        
                     }
                 } else {
             
@@ -277,25 +305,28 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
     
     // Fake Model Data
 
-//    private func loadSampleFlights() {
-//    
-//    
-//        guard let flight1 = Flight(name: "Morning Routine", steps: ["Wake up", "Make Coffee", "Shower"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
-//            fatalError("Unable to instantiate flight")
-//        }
-//        
-//        guard let flight2 = Flight(name: "Work Routine", supplies: ["desk"]) else {
-//            fatalError("Unable to instantiate flight2")
-//        }
-//        
-//        guard let flight3 = Flight(name: "Bedtime Routine", steps: ["Get in Bed", "Fall Asleep"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
-//            fatalError("Unable to instantiate flight3")
-//        }
-//        
-//        
-//        flights += [flight1, flight2, flight3]
-//        
-//    }
+    private func loadSampleFlights() {
+    
+    
+        guard let flight1 = Flight(name: "Morning Routine", steps: ["Wake up", "Make Coffee", "Shower"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
+            fatalError("Unable to instantiate flight")
+        }
+        
+        guard let flight2 = Flight(name: "Work Routine", supplies: ["desk"]) else {
+            fatalError("Unable to instantiate flight2")
+        }
+        
+        guard let flight3 = Flight(name: "Bedtime Routine", steps: ["Get in Bed", "Fall Asleep"], supplies: ["overhead light", "coffee maker"], isFavorite: true) else {
+            fatalError("Unable to instantiate flight3")
+        }
+        
+        
+        let loadedFlights = [flight1, flight2, flight3]
+        for flight in loadedFlights {
+            sortFlights(flight: flight)
+        }
+        
+    }
     
     private func saveFlights() {
         let flightsFlattened = Array(flights.joined())
