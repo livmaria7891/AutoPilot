@@ -198,13 +198,6 @@
                                     <action selector="deleteFlight:" destination="eY7-Ml-thl" eventType="touchUpInside" id="3gy-Rm-XQj"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Average Time: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qzb-ts-vkH">
-                                <rect key="frame" x="16" y="230" width="343" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a step" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u95-ca-kyc">
                                 <rect key="frame" x="16" y="88" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -212,6 +205,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dd0-GU-Uzj">
+                                <rect key="frame" x="301" y="238" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" red="0.38431372549019605" green="0.67450980392156867" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="toggleFavorite:" destination="eY7-Ml-thl" eventType="valueChanged" id="WkV-du-8xr"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorite?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oh7-4t-VtK">
+                                <rect key="frame" x="190" y="238" width="103" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="17"/>
+                                <color key="textColor" red="0.28235294119999998" green="0.35294117650000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -243,6 +251,7 @@
                         <outlet property="cancelButton" destination="aTM-JG-P1Y" id="mlQ-LF-mhs"/>
                         <outlet property="deleteButton" destination="dv1-zm-5ne" id="NGq-Ba-Vdh"/>
                         <outlet property="editButton" destination="MDQ-FW-jlx" id="yKn-Ed-pCY"/>
+                        <outlet property="favSwitch" destination="dd0-GU-Uzj" id="udk-ud-WbT"/>
                         <outlet property="nameTextField" destination="aQQ-4G-BdY" id="teq-xD-Ppe"/>
                         <outlet property="saveButton" destination="yuV-Xj-xu8" id="x4i-53-tWC"/>
                         <outlet property="startButton" destination="7ty-4j-cFh" id="Op6-ni-b97"/>
@@ -255,7 +264,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vc9-qP-0Im" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bWI-0F-dZu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3932" y="-448"/>
+            <point key="canvasLocation" x="3932" y="-448.42578710644682"/>
         </scene>
         <!--My Flights-->
         <scene sceneID="MmM-FP-HIv">
@@ -320,7 +329,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRW-aL-eKA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kU3-K5-TxD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kU3-K5-TxD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -339,7 +348,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="auz-m3-0Bs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kKu-sn-3bs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kKu-sn-3bs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

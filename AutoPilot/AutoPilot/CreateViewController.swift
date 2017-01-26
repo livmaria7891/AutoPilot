@@ -28,6 +28,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     @IBOutlet weak var addSuppliesButton: UIButton!
     @IBOutlet weak var addStepTextField: UITextField!
     @IBOutlet weak var addSuppliesTextField: UITextField!
+    @IBOutlet weak var favSwitch: UISwitch!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,7 +54,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     var suppliesString = ""
-    var isFavorite = true
+    var isFavorite = Bool()
     
     // Variables for Managing Various Functions
     var validFlight = false
@@ -82,6 +83,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         if flight != nil {
             validFlight = true
             titleTextField.text = flightName
+            print(">>>>")
+            print(isFavorite)
+            if isFavorite{
+                favSwitch.isOn = true
+            } else {
+                favSwitch.isOn = false
+            }
         }
         
         // Display Appropriate View
@@ -117,6 +125,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             }
             
             isFavorite = flight.isFavorite
+            
         }
     }
     
@@ -211,6 +220,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
     }
     
+    @IBAction func toggleFavorite(_ sender: Any) {
+        toggleFavoriteStatus()
+        
+        saveFlight()
+    }
+    
+    
     
 
 
@@ -262,6 +278,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             titleTextField.text = textField.text
             
             validFlight = true
+            toggleFavoriteStatus()
             changeViewState()
             saveFlight()
             
@@ -325,7 +342,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         let isFavorite = self.isFavorite
         
         
-        // Set the flight to be passed to FlightTableViewController or SingleFlightViewController
+        // Set the flight to be passed to FlightTableViewController
         flight = Flight(name: name, steps: steps, supplies: supplies, isFavorite: isFavorite )
         
     }
@@ -430,6 +447,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     //MARK: Private Methods
     
+    
     private func changeViewState() {
         if !validFlight {
             nameTextField.isHidden = false
@@ -442,6 +460,13 @@ class CreateViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         }
     }
     
+    private func toggleFavoriteStatus() {
+        if favSwitch.isOn {
+            isFavorite = true
+        } else {
+            isFavorite = false
+        }
+    }
     
     private func saveFlight() {
       
