@@ -42,9 +42,6 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             loadSampleFlights()
             
         }
-        print(flights)
-        print(favorites)
-        print(notFavorited)
 
 
         // Gesture Recognizer for Swipe
@@ -224,19 +221,9 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                     
                     let section = selectedIndexPath.section
                     let row = selectedIndexPath.row
-                    print(flight.isFavorite)
-                    print(">>>>")
-                    print(favorites)
-                    print(">>>>")
-                    print(notFavorited)
-                    print(">>>>")
-                    print(flights)
-                    print("xxxxx")
-                    print(flight)
 
                     if sourceViewController.deleteClicked == true {
-                        print(section)
-                        print(row)
+                       
                         if section == 0 {
                             favorites.remove(at: row)
                         } else if section == 1{
@@ -245,7 +232,6 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                         }
                         
                         buildFlightsArray()
-                        printFlightsArray()
                         tableView.deleteRows(at: [selectedIndexPath], with: .fade)
                         
                         sourceViewController.deleteClicked = false
@@ -255,6 +241,8 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
 
                         //Updates saved Flights
                         if flight.isFavorite && section == 0{
+                            favorites[row] = flight
+                            buildFlightsArray()
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         
@@ -273,6 +261,8 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                         }
                         
                         if !flight.isFavorite && section == 1 {
+                            notFavorited[row] = flight
+                            buildFlightsArray()
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
 
@@ -283,10 +273,10 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
                     // Add a new flight.
                     
                     var newIndexPath = IndexPath(row: flights[1].count, section: 1)
-                    print(newIndexPath)
+                
                     if flight.isFavorite {
                         newIndexPath = IndexPath(row: flights[0].count, section: 0)
-                        print(newIndexPath)
+                
                     }
                     
                     sortFlights(flight: flight)
@@ -352,19 +342,12 @@ class FlightTableViewController: UITableViewController, UIViewControllerTransiti
             notFavorited.append(flight)
         }
         buildFlightsArray()
-        print(flights)
+
     }
     
     private func buildFlightsArray () {
         flights = [favorites, notFavorited]
     }
     
-    
-    // For Testing
-    private func printFlightsArray() {
-        for flight in Array(flights.joined()) {
-            print(flight.name)
-        }
-    }
 
 }
